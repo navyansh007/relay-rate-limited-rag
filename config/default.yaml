@@ -43,8 +43,10 @@ retrieval:
     s2_big_few:    {piece_tokens: 500, overlap: 80, fetch: 4, rerank: false, candidates: 4}
     s3_rerank:     {piece_tokens: 300, overlap: 60, fetch: 4, rerank: true, candidates: 20}
     s4_tight:      {piece_tokens: 300, overlap: 60, fetch: 3, rerank: true, candidates: 20}
-  tool_timeout_s: 2.0
-  refuse_below_score: 0.0   # calibrated later against eval set
+  tool_timeout_s: 3.0
+  # Re-ranking is CPU-bound (~0.6-1.1 s per query); cap concurrent re-ranks so a
+  # burst queues visibly instead of thrashing the CPU.
+  rerank_concurrency: 2
 
 retry:
   policy: budgeted          # budgeted | naive | none
@@ -57,7 +59,21 @@ limiter:
   enabled: true   # false only for the "no client-side limiting" ablation
 
 pipeline:
+  understand_mode: model    # model | rules
+  understand_min_headroom: 0.2   # below this TPM headroom, route with keyword rules
   max_requery_loops: 1
+  # Evidence thresholds for the decide step (PLACEHOLDERS: calibrate on eval set).
+  weak_rerank: -4.0         # cross-encoder logit of the best passage
+  weak_dense: 0.55          # cosine of the best passage when not re-ranking
+  # When the draft model's per-minute headroom drops below this, retrieve fewer pieces.
+  tight_headroom: 0.3
+  tight_setting: s4_tight
   verify_mode: sentence     # sentence | strict | off
   draft_max_tokens: 400
   understand_max_tokens: 150
+
+# Extra request fields per model. gpt-oss models reason before answering;
+# low effort keeps hidden reasoning tokens (TTFT and TPM cost) down.
+model_extra:
+  openai/gpt-oss-120b: {reasoning_effort: low}
+  openai/gpt-oss-20b: {reasoning_effort: low}

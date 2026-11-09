@@ -86,11 +86,13 @@ class CallOutcome:
         final: The last attempt's result, or None if none was made.
         refused: Why no (further) attempt was made: ``"day"``, ``"deadline"``,
             ``"budget"``, ``"max_retries"``, ``"not_retryable"`` or ``""``.
+        refused_wait_ms: Limiter wait before a refused (never sent) attempt.
     """
 
     attempts: list[Attempt] = field(default_factory=list)
     final: CallResult | None = None
     refused: str = ""
+    refused_wait_ms: float = 0.0
 
     @property
     def ok(self) -> bool:
@@ -236,6 +238,7 @@ class RetryingCaller:
             grant = await self.limiter.acquire(model, reserve, deadline_at)
             if not grant.ok:
                 out.refused = grant.reason
+                out.refused_wait_ms = grant.waited_ms
                 return out
             if not out.attempts:
                 self.budget.deposit()

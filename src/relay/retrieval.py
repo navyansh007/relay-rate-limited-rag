@@ -98,12 +98,14 @@ class Hit:
         score: Final score (re-rank score if re-ranked, else RRF score).
         bm25_rank: Rank in the BM25 list (0-based), or None if absent.
         dense_rank: Rank in the dense list (0-based), or None if absent.
+        dense_score: Cosine similarity between query and chunk embeddings.
     """
 
     chunk: dict
     score: float
     bm25_rank: int | None = None
     dense_rank: int | None = None
+    dense_score: float = 0.0
 
     @property
     def cite(self) -> str:
@@ -252,7 +254,10 @@ class Retriever:
             for i, r in ranks.items():
                 fused[i] = fused.get(i, 0.0) + 1.0 / (RRF_K + r + 1)
         top = sorted(fused, key=fused.get, reverse=True)[: max(candidates, fetch)]
-        hits = [Hit(self.chunks[i], fused[i], bm_rank.get(i), de_rank.get(i)) for i in top]
+        hits = [
+            Hit(self.chunks[i], fused[i], bm_rank.get(i), de_rank.get(i), float(dense[i]))
+            for i in top
+        ]
 
         if rerank and hits:
             docs = [self._doc_text(h.chunk) for h in hits]
