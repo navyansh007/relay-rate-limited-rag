@@ -293,7 +293,11 @@ class Limiter:
             )
         if result.status == RL_MINUTE:
             b.blocked_until = max(b.blocked_until, now + (result.retry_after_s or 1.0))
-            b.tokens = min(b.tokens, 0.0)
+            if "x-ratelimit-remaining-tokens" not in h:
+                # No server figure: assume the bucket is empty. With the header
+                # present it is authoritative, and zeroing as well would make the
+                # limiter wait out a refill on top of the retry-after backoff.
+                b.tokens = min(b.tokens, 0.0)
         elif result.status == RL_DAY:
             reset = parse_duration_s(h.get("x-ratelimit-reset-requests")) or result.retry_after_s
             b.day_blocked_until = now + (reset or DAY_S)
