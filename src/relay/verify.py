@@ -18,7 +18,9 @@ import re
 from dataclasses import dataclass
 
 _CITE = re.compile(r"\[(\d+)\]")
-_NUM = re.compile(r"(?<![\w.])\d+(?:[.,]\d+)*(?![\w])")
+# Numbers may be glued to units ("12.5Hz", "1.1kbps", "7B"); the lookbehind
+# keeps digits inside names ("H100", "P100") out.
+_NUM = re.compile(r"(?<![\w.])\d+(?:[.,]\d+)*")
 _SECTION_REF = re.compile(
     r"(§|section|table|figure|fig\.|eq\.|equation|appendix)\s*[\w.]+", re.IGNORECASE
 )
@@ -29,6 +31,27 @@ _DISCLAIMER = re.compile(
 )
 # A sentence ends at . ! or ? optionally followed by citations, then whitespace.
 _SENT_END = re.compile(r"[.!?](?:\s*\[\d+\])*(?=\s+\S)")
+# gpt-oss cites in its native style, e.g. "【3】" or "【3†L1-L4】"; others write
+# "[3†...]" or "[1, 2]". All are normalised to "[3]" / "[1][2]".
+_NATIVE_CITE = re.compile(r"[【\[]\s*(\d+(?:\s*,\s*\d+)*)\s*(?:†[^】\]]*)?[】\]]")
+_OPEN_CITE = re.compile(r"\s*(【[^】]*|\[[\d,\s†]*)$")
+
+
+def normalise_citations(text: str) -> str:
+    """Rewrites model-native citation markers into ``[n]`` form.
+
+    Args:
+        text: Model output.
+
+    Returns:
+        Text with every citation as one or more ``[n]`` markers, and
+        non-breaking spaces replaced by plain spaces.
+    """
+
+    def sub(m: re.Match) -> str:
+        return "".join(f"[{n.strip()}]" for n in m.group(1).split(","))
+
+    return _NATIVE_CITE.sub(sub, text).replace("\u202f", " ").replace("\u00a0", " ")
 
 
 @dataclass
@@ -98,12 +121,14 @@ class SentenceSplitter:
         Returns:
             Complete sentences, in order.
         """
-        self.buf += piece
+        self.buf = normalise_citations(self.buf + piece)
         out = []
         while True:
             m = _SENT_END.search(self.buf)
             if not m:
                 return out
+            if _OPEN_CITE.match(self.buf[m.end() :]):
+                return out  # a citation for this sentence is still streaming in
             out.append(self.buf[: m.end()].strip())
             self.buf = self.buf[m.end() :]
 
@@ -113,7 +138,7 @@ class SentenceSplitter:
         Returns:
             The final partial sentence, if any.
         """
-        rest, self.buf = self.buf.strip(), ""
+        rest, self.buf = normalise_citations(self.buf).strip(), ""
         return [rest] if rest else []
 
 
@@ -132,4 +157,5 @@ def render_citations(sentence: str, labels: list[str]) -> str:
         n = int(m.group(1))
         return f"[{labels[n - 1]}]" if 1 <= n <= len(labels) else m.group(0)
 
-    return re.sub(r"\]\s*\[", "][", _CITE.sub(sub, sentence))
+    out = re.sub(r"\]\s*\[", "][", _CITE.sub(sub, sentence))
+    return re.sub(r"(?<=[^\s\[\]])\[", " [", out)
