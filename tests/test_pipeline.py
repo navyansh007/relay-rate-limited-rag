@@ -83,3 +83,13 @@ async def test_day_429_from_server_degrades_to_extractive(base_url, retrievers, 
     await cli.aclose()
     assert o.status == "rate_limited" and o.answer_kind == "extractive"
     assert o.retries == 0
+
+
+async def test_named_paper_blocks_cross_paper_answer(base_url, retrievers, tmp_path):
+    """H-Net never states its GPU count; the Transformer paper's "8 P100 GPUs" must not leak."""
+    admin(base_url, {})
+    pipe, cli, _ = make(base_url, retrievers, tmp_path)
+    o = await pipe.run("How many GPUs was H-Net trained on?", "r5", time.time() + 30)
+    await cli.aclose()
+    assert "P100" not in o.text
+    assert all(c.startswith("hnet") for c in o.citations)

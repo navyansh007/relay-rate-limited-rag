@@ -453,7 +453,10 @@ class Pipeline:
             return
 
         # -- 2. retrieve (tool) + 3. decide, with one broadened re-query
-        query, papers = u["query"], u["papers"]
+        # A paper the user named explicitly always constrains retrieval, even if
+        # the understand model returned no filter (cross-paper traps, e.g. GPUs).
+        named = prompts.rule_understanding(question)["papers"]
+        query, papers = u["query"], (u["papers"] or named)
         hits: list[Hit] = []
         strong = False
         rerank = setting["rerank"]
@@ -517,6 +520,8 @@ class Pipeline:
         mode = pcfg["verify_mode"]
         labels = [h.cite for h in hits]
         passages = [h.chunk["text"] for h in hits]
+        passage_papers = [h.chunk["paper"] for h in hits]
+        named = prompts.rule_understanding(question)["papers"]
         splitter = SentenceSplitter()
         raw: list[str] = []
         released: list[str] = []
@@ -529,6 +534,13 @@ class Pipeline:
                 self._emit(trace, o, render_citations(sentence, labels) + " ", on_text)
                 return
             chk = check_sentence(sentence, passages)
+            if (
+                chk.ok
+                and len(named) == 1
+                and chk.cited
+                and all(passage_papers[c - 1] != named[0] for c in chk.cited)
+            ):
+                chk.ok, chk.reason = False, "wrong_paper"
             if not chk.ok:
                 held.append(f"{chk.reason}: {sentence}")
             elif mode == "strict":
