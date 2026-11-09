@@ -1,52 +1,179 @@
-# Evaluation questions written for this project,
-# including some the papers do not answer. Each entry:
-#   id:          stable id (used in results/answers.jsonl)
-#   question:    as a user would type it
-#   answerable:  true if the three papers answer it
-#   gold:        the answer the papers give (or why they don't)
-#   location:    where it is stated, e.g. "transformer abstract p.1; §6.1 p.8"
-#   must_contain: strings a correct answer must include (used by the grader as a check)
-#   tags:        what the question probes (number, table, cross-paper, trap, ...)
+# Evaluation questions: 12 the papers answer, 8 they do not.
+# Written in simplified technical English (ASD-STE100 style): short sentences,
+# active voice, common words, one question each. Technical names stay as-is.
 #
-# The entries below are SEEDS whose answers were checked against the extracted
-# text. Replace / extend them with your own; delete this note when done.
+# Every answer below was checked against the extracted paper text, and every
+# "answerable: false" question was checked for absence (regex search over all
+# indexed sections, bibliography excluded) on 2026-11-09.
+#
+# Fields:
+#   answerable    true if the three papers answer it
+#   gold          the answer the papers give, or what they do NOT say
+#   location      where it is stated ("none" if unanswerable)
+#   must_contain  strings a correct answer must include (grader check)
+#   tags          what the question probes
 
-- id: seed-t1
-  question: What BLEU score does the big Transformer reach on WMT 2014 English-to-French?
+# ---------------------------------------------------------------- answerable
+
+- id: a01
+  question: What BLEU score does the big Transformer model get on the English-to-French test?
   answerable: true
-  gold: 41.8 BLEU (single model, after 3.5 days on eight GPUs)
+  gold: 41.8 BLEU on WMT 2014 English-to-French (single model, 3.5 days on eight GPUs).
   location: transformer abstract p.1; §6.1 p.8
   must_contain: ["41.8"]
   tags: [number, version-trap]
 
-- id: seed-t2
-  question: How many attention heads does the base Transformer use, and what is the per-head key dimension?
+- id: a02
+  question: How many attention heads does the base Transformer use? What is the size of each head?
   answerable: true
-  gold: h = 8 heads, d_k = d_v = d_model/h = 64
+  gold: 8 heads; each head uses d_k = d_v = 64.
   location: transformer §3.2.2 p.5
   must_contain: ["8", "64"]
   tags: [number, multi-part]
 
-- id: seed-m1
-  question: What frame rate do Mimi's audio tokens run at?
+- id: a03
+  question: How many warmup steps did the Transformer team use for the learning rate?
   answerable: true
-  gold: 12.5 Hz
-  location: moshi §3.3 p.9 (also hyper-parameter table, p.8)
-  must_contain: ["12.5"]
-  tags: [number, definitional-vs-table]
+  gold: warmup_steps = 4000 (Adam optimizer; rate rises linearly, then falls with the inverse square root of the step).
+  location: transformer §5.3 p.7
+  must_contain: ["4000"]
+  tags: [number]
 
-- id: seed-m2
-  question: What latency does Moshi achieve, in theory and in practice?
+- id: a04
+  question: How long did the team train the big Transformer model?
   answerable: true
-  gold: 160 ms theoretical, 200 ms in practice
+  gold: 300,000 steps, which took 3.5 days on 8 P100 GPUs.
+  location: transformer §5.2 p.7
+  must_contain: ["3.5"]
+  tags: [number]
+
+- id: a05
+  question: What delay does Moshi have before it answers, in theory and in practice?
+  answerable: true
+  gold: 160 ms in theory, 200 ms in practice.
   location: moshi abstract p.1
   must_contain: ["160", "200"]
   tags: [number, multi-part]
 
-- id: seed-u1
-  question: How many GPUs was H-Net trained on?
+- id: a06
+  question: How many audio frames per second does the Mimi codec make?
+  answerable: true
+  gold: 12.5 frames per second (12.5 Hz).
+  location: moshi §3.3 p.9
+  must_contain: ["12.5"]
+  tags: [number, definitional-vs-table, vocabulary-mismatch]
+
+- id: a07
+  question: How many quantizers does Mimi use? What bitrate does this give?
+  answerable: true
+  gold: Q = 8 quantizers, each with a codebook size of 2048; about 1.1 kbps at 12.5 Hz.
+  location: moshi §3.3.1 p.9
+  must_contain: ["8", "1.1"]
+  tags: [number, multi-part]
+
+- id: a08
+  question: How large is the Helium text model? How much text did the team use to train it?
+  answerable: true
+  gold: 7B parameters, pretrained on 2.1T tokens of public English data.
+  location: moshi §1 p.2
+  must_contain: ["7B", "2.1T"]
+  tags: [number, multi-part]
+
+- id: a09
+  question: How many hours of audio did the Moshi team use for the first stage of training?
+  answerable: true
+  gold: About 7 million hours of unsupervised audio.
+  location: moshi §4.2 p.17
+  must_contain: ["7 million"]
+  tags: [number]
+
+- id: a10
+  question: How does H-Net decide where one chunk ends and the next chunk starts?
+  answerable: true
+  gold: A routing module measures the cosine similarity between adjacent encoder outputs; low similarity (a context change) gives a high boundary probability.
+  location: hnet §2.2.1 p.6
+  must_contain: ["cosine"]
+  tags: [mechanism, vocabulary-mismatch]
+
+- id: a11
+  question: Why does H-Net use a ratio loss?
+  answerable: true
+  gold: Without it the model can fall into trivial solutions (keep almost all vectors or compress too much); the ratio loss guides compression toward a target ratio.
+  location: hnet §2.2.3 p.8
+  must_contain: ["compress"]
+  tags: [mechanism]
+
+- id: a12
+  question: What data did the H-Net team use to train their language models?
+  answerable: true
+  gold: A 100B-token subset sampled from the FineWeb-Edu dataset.
+  location: hnet §3 p.10
+  must_contain: ["FineWeb-Edu"]
+  tags: [name]
+
+# ---------------------------------------------------------- not answerable
+# Related to the papers, but the papers do not give the answer.
+
+- id: u01
+  question: How many GPUs did the team use to train H-Net?
   answerable: false
-  gold: Not stated in the H-Net paper. (The Transformer paper's "8 NVIDIA P100 GPUs" is a cross-paper trap.)
+  gold: Not stated in the H-Net paper. Trap - the Transformer paper says "8 NVIDIA P100 GPUs" and Moshi says "H100 GPUs".
   location: none
   must_contain: []
   tags: [unanswerable, cross-paper-trap]
+
+- id: u02
+  question: How many H100 GPUs did the Moshi team use for training?
+  answerable: false
+  gold: The paper says Moshi was trained on H100 GPUs, but it does not give the number of GPUs.
+  location: none (GPU type only, moshi §4.4 p.20)
+  must_contain: []
+  tags: [unanswerable, partial-answer-trap]
+
+- id: u03
+  question: How much money did it cost to train the big Transformer model?
+  answerable: false
+  gold: Not stated. The paper gives training cost in FLOPs and days, not in money.
+  location: none (FLOPs only, transformer §6.1 Table 2)
+  must_contain: []
+  tags: [unanswerable, unit-trap]
+
+- id: u04
+  question: What BLEU score does Moshi get on translation?
+  answerable: false
+  gold: Moshi is not evaluated with BLEU or on translation. Trap - BLEU scores are all over the Transformer paper.
+  location: none
+  must_contain: []
+  tags: [unanswerable, cross-paper-trap]
+
+- id: u05
+  question: How well does the Transformer do on ImageNet image classification?
+  answerable: false
+  gold: Not covered. The paper tests translation and English constituency parsing only.
+  location: none
+  must_contain: []
+  tags: [unanswerable]
+
+- id: u06
+  question: How many tokens per second does H-Net make when it generates text?
+  answerable: false
+  gold: Not stated. The paper reports FLOPs and quality, not generation speed.
+  location: none
+  must_contain: []
+  tags: [unanswerable, number-trap]
+
+- id: u07
+  question: What licence do the Moshi model weights use?
+  answerable: false
+  gold: Not stated in the paper (it only says the model is available on GitHub).
+  location: none
+  must_contain: []
+  tags: [unanswerable]
+
+- id: u08
+  question: How much energy did the team use to train the H-Net models?
+  answerable: false
+  gold: Not stated. No energy or carbon figures are given.
+  location: none
+  must_contain: []
+  tags: [unanswerable]
