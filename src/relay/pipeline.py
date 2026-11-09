@@ -353,6 +353,8 @@ class Pipeline:
         deadline_at: float,
         on_text: TextCallback | None = None,
         t0: float | None = None,
+        queue_wait_ms: float = 0.0,
+        sink: dict | None = None,
     ) -> Outcome:
         """Answers one question.
 
@@ -362,13 +364,22 @@ class Pipeline:
             deadline_at: Unix time by which the user needs an answer.
             on_text: Receives user-visible text as it is released.
             t0: Arrival time on the ``perf_counter`` clock (defaults to now).
+            queue_wait_ms: Time already spent in the admission queue (recorded
+                as a ``wait`` span starting at arrival).
+            sink: If given, ``sink["outcome"]`` is set to the in-progress
+                outcome, so a caller that cancels the request can still read
+                the tokens spent and text shown so far.
 
         Returns:
             The outcome. If the task is cancelled (the user gave up), the trace
             is still written and the cancellation propagates.
         """
         trace = Trace(request_id, t0)
+        if queue_wait_ms > 1:
+            trace.add("wait", "admission.queue", 0.0, queue_wait_ms)
         o = Outcome(request_id, question)
+        if sink is not None:
+            sink["outcome"] = o
         try:
             await self._run(question, deadline_at, on_text, trace, o)
         except asyncio.CancelledError:

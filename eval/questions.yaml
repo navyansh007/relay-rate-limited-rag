@@ -1,0 +1,52 @@
+# Evaluation questions written for this project,
+# including some the papers do not answer. Each entry:
+#   id:          stable id (used in results/answers.jsonl)
+#   question:    as a user would type it
+#   answerable:  true if the three papers answer it
+#   gold:        the answer the papers give (or why they don't)
+#   location:    where it is stated, e.g. "transformer abstract p.1; §6.1 p.8"
+#   must_contain: strings a correct answer must include (used by the grader as a check)
+#   tags:        what the question probes (number, table, cross-paper, trap, ...)
+#
+# The entries below are SEEDS whose answers were checked against the extracted
+# text. Replace / extend them with your own; delete this note when done.
+
+- id: seed-t1
+  question: What BLEU score does the big Transformer reach on WMT 2014 English-to-French?
+  answerable: true
+  gold: 41.8 BLEU (single model, after 3.5 days on eight GPUs)
+  location: transformer abstract p.1; §6.1 p.8
+  must_contain: ["41.8"]
+  tags: [number, version-trap]
+
+- id: seed-t2
+  question: How many attention heads does the base Transformer use, and what is the per-head key dimension?
+  answerable: true
+  gold: h = 8 heads, d_k = d_v = d_model/h = 64
+  location: transformer §3.2.2 p.5
+  must_contain: ["8", "64"]
+  tags: [number, multi-part]
+
+- id: seed-m1
+  question: What frame rate do Mimi's audio tokens run at?
+  answerable: true
+  gold: 12.5 Hz
+  location: moshi §3.3 p.9 (also hyper-parameter table, p.8)
+  must_contain: ["12.5"]
+  tags: [number, definitional-vs-table]
+
+- id: seed-m2
+  question: What latency does Moshi achieve, in theory and in practice?
+  answerable: true
+  gold: 160 ms theoretical, 200 ms in practice
+  location: moshi abstract p.1
+  must_contain: ["160", "200"]
+  tags: [number, multi-part]
+
+- id: seed-u1
+  question: How many GPUs was H-Net trained on?
+  answerable: false
+  gold: Not stated in the H-Net paper. (The Transformer paper's "8 NVIDIA P100 GPUs" is a cross-paper trap.)
+  location: none
+  must_contain: []
+  tags: [unanswerable, cross-paper-trap]

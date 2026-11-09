@@ -77,3 +77,12 @@ pipeline:
 model_extra:
   openai/gpt-oss-120b: {reasoning_effort: low}
   openai/gpt-oss-20b: {reasoning_effort: low}
+
+service:
+  max_concurrent: 16        # pipeline runs at once
+  max_queue: 200            # waiting requests beyond this are turned away at once
+  cache: true               # answer cache + coalescing of identical in-flight questions
+  cache_ttl_s: 600
+  # Deadline the *system* plans against (shedding, retry decisions). Real users'
+  # patience is unknown to the system and sampled separately by the load generator.
+  deadline_s: 15

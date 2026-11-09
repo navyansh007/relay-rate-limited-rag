@@ -1,0 +1,10 @@
+# Quick harness check against the stand-in (not a reported scenario).
+name: smoke
+source: stand-in
+seed: 1
+arrivals:
+  - {kind: poisson, rate_per_min: 60, from_s: 0, to_s: 20}
+  - {kind: burst, at_s: 8, n: 25, over_s: 2}
+questions: {file: eval/questions.yaml, zipf_s: 1.0}
+patience: {median_s: 10, sigma: 0.5, min_s: 3, max_s: 40}
+output_dir: results/scratch

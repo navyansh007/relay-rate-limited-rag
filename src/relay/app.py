@@ -104,8 +104,9 @@ def build(
     )
     limiter = Limiter(cfg["limits"], enabled=cfg.get("limiter", {}).get("enabled", True))
     caller = RetryingCaller(client, limiter, RetryPolicy.from_config(cfg["retry"]))
-    pipe = Pipeline(cfg, caller, limiter, retrievers or Pipeline.load_retrievers(cfg),
-                    TraceWriter(traces_path))
+    pipe = Pipeline(
+        cfg, caller, limiter, retrievers or Pipeline.load_retrievers(cfg), TraceWriter(traces_path)
+    )
     return System(cfg, source, client, limiter, pipe)
 
 
@@ -115,15 +116,30 @@ async def _ask(question: str, real: bool, sets: list[str], patience_s: float) ->
     print(f"[{system.source}] {question}\n")
     try:
         o = await system.pipeline.run(
-            question, f"ask-{uuid.uuid4().hex[:6]}", time.time() + patience_s,
+            question,
+            f"ask-{uuid.uuid4().hex[:6]}",
+            time.time() + patience_s,
             on_text=lambda t: (sys.stdout.write(t), sys.stdout.flush()),
         )
     finally:
         await system.aclose()
     print("\n\n---")
-    summary = {k: getattr(o, k) for k in (
-        "status", "answer_kind", "first_token_ms", "total_ms", "retries", "tokens_in",
-        "tokens_out", "retrieval_setting", "draft_model", "degraded", "refusal_reason")}
+    summary = {
+        k: getattr(o, k)
+        for k in (
+            "status",
+            "answer_kind",
+            "first_token_ms",
+            "total_ms",
+            "retries",
+            "tokens_in",
+            "tokens_out",
+            "retrieval_setting",
+            "draft_model",
+            "degraded",
+            "refusal_reason",
+        )
+    }
     print(json.dumps(summary, indent=1, default=str))
 
 

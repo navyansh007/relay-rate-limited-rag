@@ -148,6 +148,7 @@ class StandIn:
             cfg: Stand-in configuration.
         """
         self.cfg = cfg
+        self.base_cfg = json.loads(json.dumps(cfg))
         self.rng = random.Random(cfg.get("seed", 0))
         self.buckets: dict[str, Buckets] = {}
         self.busy = 0
@@ -508,6 +509,10 @@ def create_app(cfg: dict | None = None) -> FastAPI:
 
     @app.post("/admin/reset")
     async def admin_reset() -> dict:
+        """Restores the startup config and clears all limit state and counters."""
+        sim.cfg = json.loads(json.dumps(sim.base_cfg))
+        sim.workers = asyncio.Semaphore(sim.cfg["latency"]["workers"])
+        sim.rng = random.Random(sim.cfg.get("seed", 0))
         sim.buckets.clear()
         sim.peak_queued = 0
         return {"ok": True}
