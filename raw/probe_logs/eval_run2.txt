@@ -1,0 +1,27 @@
+eval: 20 questions x 3 settings = 60 requests (real)
+  a04        s2_big_few     ok           answer     ttft=  1820 tok= 2306 | 'The big Transformer model was trained for 3.5 days on eight GPUs [transformer §6.1 p.8][tr'
+  a04        s3_rerank      ok           answer     ttft=  2768 tok= 1988 | 'The big Transformer model was trained for 3.5 days on eight GPUs [transformer §6.1 p.8][tr'
+  a05        s2_big_few     ok           refusal    ttft=  1461 tok= 2518 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §5.5"
+  a05        s3_rerank      ok           answer     ttft=  2180 tok= 1820 | 'Moshi’s theoretical answer latency is 160 ms, which is achieved by pre‑training with an ac'
+  a07        s2_big_few     ok           answer     ttft=  3553 tok= 2403 | 'Mimi uses eight quantizers [moshi §3.3.1 p.10]. At a sampling rate of 12.5 Hz this configu'
+  a07        s3_rerank      ok           answer     ttft= 10506 tok= 2020 | 'Mimi operates at a bitrate of 1.1 kbps [moshi §5.1 p.22]. The papers do not specify how ma'
+  a08        s1_small_many  ok           answer     ttft= 16002 tok= 2590 | 'Helium is a 7 billion‑parameter text‑only language model [moshi §3.2.2 p.7]. '
+  a09        s1_small_many  ok           answer     ttft= 16513 tok= 2445 | 'The first stage of training uses batches that each cover 16 hours of audio [moshi §4.4 p.2'
+  a09        s2_big_few     ok           answer     ttft= 18609 tok= 2771 | 'The Moshi pre‑training stage uses a batch size that covers 16 hours of audio per batch [mo'
+  a09        s3_rerank      ok           answer     ttft= 11278 tok= 1967 | 'The Moshi team used a batch size covering 16 hours of audio for the first training stage ['
+  a10        s2_big_few     ok           answer     ttft= 19209 tok= 2559 | 'H‑Net determines chunk boundaries with a routing module that computes a similarity‑based s'
+  a10        s3_rerank      ok           answer     ttft=  8181 tok= 1842 | 'H‑Net determines chunk boundaries with its routing module, which predicts where adjacent e'
+  a12        s2_big_few     ok           answer     ttft= 17079 tok= 2515 | 'The H‑Net experiments were trained on a high‑quality English corpus for the primary Englis'
+  a12        s3_rerank      ok           answer     ttft= 11649 tok= 2112 | 'The H‑Net experiments trained models on a 46 B‑token subset of the FineWeb‑Edu‑Chinese‑V2.'
+  u02        s1_small_many  ok           refusal    ttft= 13890 tok= 2251 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §4.4"
+  u02        s2_big_few     ok           refusal    ttft= 14122 tok= 2212 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §4.4"
+  u03        s1_small_many  ok           refusal    ttft= 14290 tok= 2375 | "The three papers don't say this, so I won't guess. Closest passages I checked: [transforme"
+  u03        s2_big_few     ok           refusal    ttft= 12380 tok= 1924 | "The three papers don't say this, so I won't guess. Closest passages I checked: [transforme"
+  u05        s1_small_many  ok           refusal    ttft= 14414 tok= 2362 | "The three papers don't say this, so I won't guess. Closest passages I checked: [transforme"
+  u05        s2_big_few     ok           refusal    ttft= 12493 tok= 2083 | "The three papers don't say this, so I won't guess. Closest passages I checked: [transforme"
+  u06        s1_small_many  ok           refusal    ttft= 14734 tok= 2323 | "The three papers don't say this, so I won't guess. Closest passages I checked: [hnet §4 p."
+  u07        s1_small_many  ok           refusal    ttft= 13839 tok= 2224 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §5.8"
+  u07        s2_big_few     ok           refusal    ttft= 15258 tok= 2349 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §5.8"
+  u08        s1_small_many  ok           refusal    ttft= 13992 tok= 2156 | "The three papers don't say this, so I won't guess. Closest passages I checked: [hnet §2 p."
+  u08        s2_big_few     ok           refusal    ttft= 14585 tok= 2280 | "The three papers don't say this, so I won't guess. Closest passages I checked: [hnet §2 p."
+tokens used: 56395

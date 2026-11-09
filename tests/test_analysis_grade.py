@@ -52,3 +52,18 @@ def test_scenario_rows_counts():
     assert "| s | stand-in | 3 |" in a[0] and "(n=1)" in a[0]
     # 1/3 ok, 1/3 rl, 1/3 timeout; retries 2/3; cost = 1000*(100*1+50*2)/1e6 = 0.20
     assert "| 33.3 | 33.3 | 33.3 | 0.67 |" in b[0] and "$0.20" in b[0]
+
+
+def test_grader_normalises_number_words_and_scales():
+    q = {
+        "answerable": True,
+        "must_contain": ["8", "64", "7B", "2.1T", "7 million"],
+        "location": "transformer x",
+    }
+    a = {
+        "answer_kind": "answer",
+        "citations": ["transformer §1 p.1"],
+        "text": "It uses eight heads of size 64, a 7‑billion model, 2.1 trillion tokens, "
+        "7 million hours.",
+    }
+    assert propose_grade(q, a) == "correct"

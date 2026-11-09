@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 
 import yaml
 
@@ -49,6 +50,49 @@ FIELDS = [
 VALID = {"correct", "wrong", "refused_correctly", "refused_wrongly"}
 
 
+_WORDS = {
+    w: str(i)
+    for i, w in enumerate(
+        [
+            "zero",
+            "one",
+            "two",
+            "three",
+            "four",
+            "five",
+            "six",
+            "seven",
+            "eight",
+            "nine",
+            "ten",
+            "eleven",
+            "twelve",
+        ]
+    )
+}
+
+
+def normalise(text: str) -> str:
+    """Normalises an answer for string checks.
+
+    Number words become digits ("eight" -> "8"), scale words become suffixes
+    ("7 billion" -> "7b", "2.1 trillion" -> "2.1t"), and hyphen/space variants
+    collapse, so wording differences do not count as wrong answers.
+
+    Args:
+        text: Answer text.
+
+    Returns:
+        Lower-cased normalised text.
+    """
+    t = text.lower().replace("\u2011", "-").replace("\u202f", " ").replace("\u00a0", " ")
+    t = re.sub(r"\b(" + "|".join(_WORDS) + r")\b", lambda m: _WORDS[m.group(1)], t)
+    t = re.sub(r"(\d)\s*-?\s*(billion|bn)\b", r"\1b", t)
+    t = re.sub(r"(\d)\s*-?\s*(trillion)\b", r"\1t", t)
+    t = re.sub(r"(\d)\s*-?\s*(million)\b", r"\1 million", t)
+    return re.sub(r"(\d),(\d{3})", r"\1\2", t)
+
+
 def propose_grade(q: dict, ans: dict) -> str:
     """Proposes a grade for one answer.
 
@@ -64,10 +108,10 @@ def propose_grade(q: dict, ans: dict) -> str:
         return "refused_correctly" if kind in ("refusal", "extractive") else "wrong"
     if kind != "answer":
         return "refused_wrongly"
-    text = ans["text"].lower()
-    has_all = all(s.lower() in text for s in q.get("must_contain") or [])
+    text = normalise(ans["text"])
+    has_all = all(normalise(s) in text for s in q.get("must_contain") or [])
     any_of = q.get("must_contain_any") or []
-    has_all = has_all and (not any_of or any(s.lower() in text for s in any_of))
+    has_all = has_all and (not any_of or any(normalise(s) in text for s in any_of))
     paper = (q.get("location") or "").split()[0] if q.get("location") else ""
     cites_paper = not paper or any(c.startswith(paper) for c in ans.get("citations") or [])
     return "correct" if has_all and cites_paper else "wrong"
@@ -99,8 +143,9 @@ def propose(scenario_prefix: str) -> None:
                 or a["source"] != "real"
                 or not a["scenario"].startswith(scenario_prefix)
                 or a["question_id"] not in questions
+                or a["answer_kind"] not in ("answer", "refusal")
             ):
-                continue
+                continue  # limit fallbacks (extractive/none) are not quality evidence
             q = questions[a["question_id"]]
             rows.append(
                 {
