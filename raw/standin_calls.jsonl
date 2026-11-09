@@ -1,0 +1,14 @@
+{"id": "b5e7a22174a0", "t": 1794223591.408711, "model": "m", "step": "draft", "prompt_tokens": 18, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 26.9}
+{"id": "746f4dc77acf", "t": 1794223591.454093, "model": "m", "step": "", "prompt_tokens": 75, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on tokens per minute (TPM): Limit 120, Used 0, Requested 125. Please try again in 2.500s."}
+{"id": "a4cf3fb7b307", "t": 1794223591.4593768, "model": "m", "step": "", "prompt_tokens": 75, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on tokens per minute (TPM): Limit 120, Used 0, Requested 125. Please try again in 2.500s."}
+{"id": "3b19d641d965", "t": 1794223591.498111, "model": "m", "step": "", "prompt_tokens": 75, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.3}
+{"id": "d11b455b5e82", "t": 1794223591.529273, "model": "m", "step": "", "prompt_tokens": 75, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per day (RPD): Limit 100000, Used 100000, Requested 1. Please try again in 86399.969s."}
+{"id": "2fbbe367b2b0", "t": 1794223591.543895, "model": "m", "step": "", "prompt_tokens": 75, "status": 503}
+{"id": "125d27788c9a", "t": 1794223591.556978, "model": "m", "step": "", "prompt_tokens": 75, "status": "client_gone", "queue_ms": 0.0, "slow": false, "total_ms": 303.6}
+{"id": "cdcfd89f892d", "t": 1794223599.277051, "model": "m", "step": "draft", "prompt_tokens": 18, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 27.5}
+{"id": "1c9d4ca8cdf5", "t": 1794223599.319842, "model": "m", "step": "", "prompt_tokens": 75, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.0}
+{"id": "9367da96a437", "t": 1794223599.346943, "model": "m", "step": "", "prompt_tokens": 75, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on tokens per minute (TPM): Limit 200, Used 75, Requested 125. Please try again in 0.273s."}
+{"id": "99c596042419", "t": 1794223599.361953, "model": "m", "step": "", "prompt_tokens": 75, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.3}
+{"id": "96bce1d3ac52", "t": 1794223599.393076, "model": "m", "step": "", "prompt_tokens": 75, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per day (RPD): Limit 100000, Used 100000, Requested 1. Please try again in 86399.969s."}
+{"id": "006759189266", "t": 1794223599.406136, "model": "m", "step": "", "prompt_tokens": 75, "status": 503}
+{"id": "425701423e40", "t": 1794223599.421759, "model": "m", "step": "", "prompt_tokens": 75, "status": "client_gone", "queue_ms": 0.0, "slow": false, "total_ms": 303.2}

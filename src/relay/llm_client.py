@@ -243,6 +243,7 @@ class LLMClient:
         extra: dict | None = None,
         tag: str = "",
         deadline_s: float | None = None,
+        step: str = "",
     ) -> CallResult:
         """Streams one chat completion.
 
@@ -259,6 +260,8 @@ class LLMClient:
             tag: Label stored on the result and in the log.
             deadline_s: Remaining time budget of the caller; tightens the
                 first-token timeout if shorter.
+            step: Pipeline step name, sent as ``X-Relay-Step`` so the stand-in
+                can shape synthetic replies; ignored by Groq.
 
         Returns:
             The attempt's measurements and content.
@@ -289,7 +292,10 @@ class LLMClient:
         parts: list[str] = []
         try:
             async with self._http.stream(
-                "POST", f"{self.base_url}/chat/completions", json=payload
+                "POST",
+                f"{self.base_url}/chat/completions",
+                json=payload,
+                headers={"X-Relay-Step": step} if step else None,
             ) as resp:
                 res.http_status = resp.status_code
                 res.headers = {h: resp.headers[h] for h in RATE_HEADERS if h in resp.headers}

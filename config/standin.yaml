@@ -1,0 +1,48 @@
+# Stand-in model service parameters.
+# Latency parameters are PLACEHOLDERS until fitted from raw/groq_calls.jsonl
+# by `python -m relay.calibrate`, which writes config/standin_calibration.yaml
+# (loaded on top of this file).
+
+host: 127.0.0.1
+port: 8900
+seed: 7
+
+# Rate-limit window semantics are a guess until probes tell us otherwise:
+#   minute buckets: token bucket refilling continuously (limit/60 per second)
+#   day buckets: fixed counter, reset `day_reset_s` after first use
+limits:
+  default: {rpm: 30, tpm: 6000, rpd: 14400, tpd: 500000}
+  per_model: {}
+  day_reset_s: 86400
+  # Count prompt + max_tokens against TPM at admission (as Groq appears to),
+  # then refund the unused completion budget when the reply ends.
+  reserve_max_tokens: true
+
+latency:
+  # Server-side capacity: requests beyond `workers` queue inside the stand-in.
+  workers: 8
+  # Time to first token (ms) ~ lognormal(median, sigma) + prefill_ms_per_1k * prompt_tokens/1000
+  ttft_median_ms: 250
+  ttft_sigma: 0.45
+  prefill_ms_per_1k: 40
+  # Decode speed (tokens/s) ~ lognormal around median
+  decode_tps_median: 400
+  decode_tps_sigma: 0.25
+  # Load slowdown: multiply TTFT and per-token time by 1 + alpha * max(0, busy/workers - knee)
+  load_alpha: 1.5
+  load_knee: 0.5
+  # Pieces are sent this many tokens at a time (SSE chunk granularity)
+  tokens_per_chunk: 4
+
+faults:
+  p_server_error: 0.01     # immediate 500/503
+  p_hang: 0.005            # accept, then never send a token
+  p_slow_success: 0.02     # succeed, but TTFT x slow_factor
+  slow_factor: 8.0
+  p_midstream_drop: 0.005  # close the stream part-way through
+
+content:
+  # Real replies recorded during real runs, keyed by message hash, are replayed
+  # verbatim; anything else gets a synthetic reply built from the prompt.
+  replay_file: raw/replay.jsonl
+  synthetic_out_tokens_median: 120
