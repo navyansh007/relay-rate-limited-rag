@@ -1,51 +1,10 @@
 import asyncio
-import socket
-import threading
 import time
 
 import httpx
-import pytest
-import uvicorn
+from conftest import admin
 
 from relay.llm_client import OK, RL_DAY, RL_MINUTE, SERVER_ERROR, TIMEOUT, LLMClient
-from relay.standin import create_app, load_standin_config
-
-FAST = {
-    "latency": {
-        "workers": 4,
-        "ttft_median_ms": 20,
-        "ttft_sigma": 0.1,
-        "decode_tps_median": 5000,
-        "prefill_ms_per_1k": 0,
-    },
-    "faults": {"p_server_error": 0, "p_hang": 0, "p_slow_success": 0, "p_midstream_drop": 0},
-    "limits": {"default": {"rpm": 1000, "tpm": 100000, "rpd": 100000, "tpd": 10000000}},
-    "content": {"replay_file": "raw/__no_replay__.jsonl"},
-}
-
-
-@pytest.fixture(scope="module")
-def base_url():
-    with socket.socket() as s:
-        s.bind(("127.0.0.1", 0))
-        port = s.getsockname()[1]
-    server = uvicorn.Server(
-        uvicorn.Config(
-            create_app(load_standin_config(FAST)), host="127.0.0.1", port=port, log_level="error"
-        )
-    )
-    t = threading.Thread(target=server.run, daemon=True)
-    t.start()
-    while not server.started:
-        time.sleep(0.02)
-    yield f"http://127.0.0.1:{port}"
-    server.should_exit = True
-    t.join(timeout=5)
-
-
-def admin(base_url, patch):
-    httpx.post(f"{base_url}/admin/reset")
-    httpx.post(f"{base_url}/admin/config", json={**FAST, **patch}).raise_for_status()
 
 
 async def call(base_url, **kw):
@@ -96,13 +55,13 @@ async def test_exhausted_day_is_per_day_429(base_url):
 
 
 async def test_server_error(base_url):
-    admin(base_url, {"faults": {**FAST["faults"], "p_server_error": 1.0}})
+    admin(base_url, {"faults": {"p_server_error": 1.0}})
     r = await call(base_url)
     assert r.status == SERVER_ERROR and r.http_status == 503
 
 
 async def test_hang_hits_first_token_timeout(base_url):
-    admin(base_url, {"faults": {**FAST["faults"], "p_hang": 1.0}})
+    admin(base_url, {"faults": {"p_hang": 1.0}})
     t0 = time.perf_counter()
     r = await call(base_url, ftt=0.3)
     assert r.status == TIMEOUT and time.perf_counter() - t0 < 2

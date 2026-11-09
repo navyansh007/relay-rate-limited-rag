@@ -53,6 +53,9 @@ retry:
   max_backoff_s: 4.0
   retry_budget_ratio: 0.2   # retries may be at most this fraction of first attempts
 
+limiter:
+  enabled: true   # false only for the "no client-side limiting" ablation
+
 pipeline:
   max_requery_loops: 1
   verify_mode: sentence     # sentence | strict | off
