@@ -18,11 +18,12 @@ async def test_acquire_charges_and_sheds_on_deadline():
     assert not g2.ok and g2.reason == "deadline" and g2.waited_ms < 200
 
 
-async def test_rpm_window_blocks_fourth_call():
+async def test_rpm_bucket_delays_fourth_call():
     lim = Limiter(LIM)
     for _ in range(3):
         assert (await lim.acquire("m", 1, time.time() + 1)).ok
-    assert lim.estimated_wait_s("m", 1) > 50
+    # continuous refill: the 4th request waits ~60/rpm = 20 s, not a full minute
+    assert 15 < lim.estimated_wait_s("m", 1) <= 20
 
 
 def test_observe_trusts_lower_remaining_and_new_limits():

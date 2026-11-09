@@ -27,7 +27,6 @@ from __future__ import annotations
 
 import asyncio
 import time
-from collections import deque
 from dataclasses import dataclass, field
 
 from relay.llm_client import RL_DAY, RL_MINUTE, CallResult, parse_duration_s
@@ -61,9 +60,10 @@ class ModelBudget:
         tpd: Tokens per day.
         tokens: Current TPM bucket level.
         updated: Last refill time.
-        req_times: Send times within the last minute.
-        day_requests: Requests sent in the current day window.
-        day_tokens: Tokens charged in the current day window.
+        req_used: Requests counted against RPM; drains at ``rpm/60`` per second.
+        day_requests: Requests counted against RPD; drains at ``rpd/86400`` per second
+            (measured: Groq's daily budget refills continuously, not at midnight).
+        day_tokens: Tokens counted against TPD; assumed to drain the same way.
         blocked_until: No calls before this time (from a per-minute 429).
         day_blocked_until: Model exhausted for the day until this time.
         lock: FIFO queue of waiters for this model.
@@ -75,23 +75,25 @@ class ModelBudget:
     tpd: int
     tokens: float = 0.0
     updated: float = field(default_factory=time.time)
-    req_times: deque = field(default_factory=deque)
-    day_requests: int = 0
-    day_tokens: int = 0
+    req_used: float = 0.0
+    day_requests: float = 0.0
+    day_tokens: float = 0.0
     blocked_until: float = 0.0
     day_blocked_until: float = 0.0
     lock: asyncio.Lock = field(default_factory=asyncio.Lock)
 
     def refill(self, now: float) -> None:
-        """Refills the TPM bucket and expires the RPM window.
+        """Advances all four buckets to ``now``.
 
         Args:
             now: Current unix time.
         """
-        self.tokens = min(self.tpm, self.tokens + (now - self.updated) * self.tpm / 60.0)
+        dt = max(0.0, now - self.updated)
+        self.tokens = min(self.tpm, self.tokens + dt * self.tpm / 60.0)
+        self.req_used = max(0.0, self.req_used - dt * self.rpm / 60.0)
+        self.day_requests = max(0.0, self.day_requests - dt * self.rpd / 86400.0)
+        self.day_tokens = max(0.0, self.day_tokens - dt * self.tpd / 86400.0)
         self.updated = now
-        while self.req_times and now - self.req_times[0] >= 60:
-            self.req_times.popleft()
 
     def wait_needed(self, now: float, est_tokens: int) -> float:
         """Seconds until a call of ``est_tokens`` fits every per-minute limit.
@@ -104,8 +106,8 @@ class ModelBudget:
             Zero if the call may go now.
         """
         waits = [self.blocked_until - now]
-        if len(self.req_times) >= self.rpm:
-            waits.append(60 - (now - self.req_times[0]))
+        if self.req_used + 1 > self.rpm:
+            waits.append((self.req_used + 1 - self.rpm) * 60.0 / self.rpm)
         need = min(est_tokens, self.tpm) - self.tokens
         if need > 0:
             waits.append(need * 60.0 / self.tpm)
@@ -123,7 +125,7 @@ class ModelBudget:
         """
         return (
             now < self.day_blocked_until
-            or self.day_requests >= self.rpd
+            or self.day_requests + 1 > self.rpd
             or self.day_tokens + est_tokens > self.tpd
         )
 
@@ -195,7 +197,7 @@ class Limiter:
                 wait = b.wait_needed(now, est_tokens)
                 if wait <= 0:
                     b.tokens -= est_tokens
-                    b.req_times.append(now)
+                    b.req_used += 1
                     b.day_requests += 1
                     b.day_tokens += est_tokens
                     return Grant(True, (now - t0) * 1000)

@@ -1,0 +1,375 @@
+{"id": "d3101ce679b7", "t": 1794226727.722337, "model": "m", "step": "draft", "prompt_tokens": 18, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 27.0}
+{"id": "02edd1dd145f", "t": 1794226727.763681, "model": "m", "step": "", "prompt_tokens": 75, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.3}
+{"id": "0c10bdd4a388", "t": 1794226727.792785, "model": "m", "step": "", "prompt_tokens": 75, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on tokens per minute (TPM): Limit 200, Used 75, Requested 125. Please try again in 0.271s."}
+{"id": "f3a75a4dcb5d", "t": 1794226727.808885, "model": "m", "step": "", "prompt_tokens": 75, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.2}
+{"id": "d469e752e164", "t": 1794226727.84144, "model": "m", "step": "", "prompt_tokens": 75, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per day (RPD): Limit 100000, Used 99999, Requested 1. Please try again in 0.831s."}
+{"id": "a144c3cd7dd6", "t": 1794226727.8546948, "model": "m", "step": "", "prompt_tokens": 75, "status": 503}
+{"id": "7ecec0a46657", "t": 1794226727.870261, "model": "m", "step": "", "prompt_tokens": 75, "status": "client_gone", "queue_ms": 0.0, "slow": false, "total_ms": 304.4}
+{"id": "54f45b19d751", "t": 1794226728.5606651, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "1e417f3bf4a6", "t": 1794226728.651243, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "81ae11890bf9", "t": 1794226729.0388968, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.8}
+{"id": "a36c21c02fdb", "t": 1794226729.067393, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "64bd2c1d9d6f", "t": 1794226729.1436858, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "a53b4ad1b022", "t": 1794226729.147788, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.0}
+{"id": "b009237962d1", "t": 1794226729.185146, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "285c4bd086da", "t": 1794226729.4017699, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "cb75da565341", "t": 1794226729.634625, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "3bdb594f00ab", "t": 1794226729.638867, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.4}
+{"id": "6f9448c25ca1", "t": 1794226729.669468, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.5}
+{"id": "2338ad4c51a8", "t": 1794226729.704101, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "041d45c5b732", "t": 1794226729.9029021, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 26.0}
+{"id": "b2ee8a990481", "t": 1794226729.9359539, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "68b6a91b01d1", "t": 1794226730.088232, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "2d3a8f21a2dd", "t": 1794226730.169425, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "3a6178c63800", "t": 1794226730.850837, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "0742d3e81d47", "t": 1794226730.854933, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.1}
+{"id": "60b2d3a232d9", "t": 1794226730.884734, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 19.4}
+{"id": "38ae67d46669", "t": 1794226730.911121, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "fa93ea55d82e", "t": 1794226731.068971, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "a192271acaf2", "t": 1794226731.541913, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "ac191e395621", "t": 1794226732.131315, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 20.9}
+{"id": "02cac0c9022f", "t": 1794226732.158538, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.7}
+{"id": "55f4e9a73af3", "t": 1794226732.1872451, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.3}
+{"id": "85dd079233aa", "t": 1794226732.2172549, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 17.0}
+{"id": "67b03355dd78", "t": 1794226732.2390568, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.3}
+{"id": "dfda3be85d44", "t": 1794226732.267009, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "d983ca8ae169", "t": 1794226732.2891421, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "90a0aa14e0d1", "t": 1794226732.563814, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.3}
+{"id": "d3935ed305f9", "t": 1794226732.593854, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "138e4de86096", "t": 1794226732.847748, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.1}
+{"id": "077fab561694", "t": 1794226732.878025, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.2}
+{"id": "5e95de2630ce", "t": 1794226732.907247, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 20.1}
+{"id": "f1bc0e7f0c0e", "t": 1794226732.9323342, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.1}
+{"id": "abff532a0637", "t": 1794226732.9590678, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.1}
+{"id": "499979930b01", "t": 1794226732.991596, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.9}
+{"id": "dbf4c2f89432", "t": 1794226733.023216, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "52ef2fffcfcf", "t": 1794226733.140269, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "783d16f260c2", "t": 1794226733.3715122, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.6}
+{"id": "4b94dfeeda42", "t": 1794226733.401508, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "f00e9073d71f", "t": 1794226733.645246, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "3abf08b7a764", "t": 1794226733.872206, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "e9222d80514a", "t": 1794226734.675483, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.5}
+{"id": "a60f38938f27", "t": 1794226734.7120929, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "88e8d3381136", "t": 1794226734.844028, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.7}
+{"id": "dca4486d0d8b", "t": 1794226734.877919, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.4}
+{"id": "88cd9a4c6f6e", "t": 1794226734.910432, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.5}
+{"id": "5eff04097367", "t": 1794226734.94183, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "d3728c8f4b4d", "t": 1794226735.079784, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.7}
+{"id": "ac698148b20c", "t": 1794226735.109735, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "7056f2af4008", "t": 1794226735.291618, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "1cc0ca8421fd", "t": 1794226735.424351, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "49f55a145d80", "t": 1794226735.539785, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "ff4d52374650", "t": 1794226735.5423732, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.6}
+{"id": "4dec53f8f2b0", "t": 1794226735.6004312, "model": "m", "step": "", "prompt_tokens": 1, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per day (RPD): Limit 100000, Used 99999, Requested 1. Please try again in 0.858s."}
+{"id": "056e0f663b70", "t": 1794226735.621158, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.6}
+{"id": "810b1cfb0a5f", "t": 1794226735.647064, "model": "m", "step": "", "prompt_tokens": 1, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per minute (RPM): Limit 1, Used 1, Requested 1. Please try again in 59.974s."}
+{"id": "c10f9d7cf3cb", "t": 1794226735.668555, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "af5939bd91ef", "t": 1794226735.683168, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "cbd85e118a5b", "t": 1794226735.690719, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "226c8bfb4389", "t": 1794226735.7030349, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "45f781c15b89", "t": 1794226735.704479, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "131e31925e41", "t": 1794226735.706387, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "4880078a901b", "t": 1794226735.716306, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "0787f3b9adc3", "t": 1794226735.717592, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "e1ee20879674", "t": 1794226735.719027, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "3cb419ae9f51", "t": 1794226735.720341, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "c3f87e1b1a05", "t": 1794226735.721837, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "6b74af99fe67", "t": 1794226735.722831, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "c916b44b3669", "t": 1794226735.730606, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "d3589722a35c", "t": 1794226735.73169, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "fc0e2290cd37", "t": 1794226735.732617, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "69e58b31a841", "t": 1794226735.733535, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "077d62764022", "t": 1794226735.7345998, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "e1faa0b134d5", "t": 1794226735.7356129, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "d52cf06b8a2d", "t": 1794226735.7462, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "a4c3094e4271", "t": 1794226735.747672, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "24ed7d1f7884", "t": 1794226735.748827, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "374076854d34", "t": 1794226735.7503731, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "287189504834", "t": 1794226735.75197, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "fa1f40de22b0", "t": 1794226735.753191, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "b4746e508954", "t": 1794226735.760522, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "57a1e3d92d1b", "t": 1794226750.559366, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "4ea3097fbe2d", "t": 1794226750.656169, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "42f763e033ac", "t": 1794226750.8838332, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.3}
+{"id": "397605581ae5", "t": 1794226750.9153879, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "701307b9fe57", "t": 1794226751.014477, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "52b9a7377ab8", "t": 1794226751.018985, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.1}
+{"id": "fde492defbad", "t": 1794226751.052125, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "c9c42909034b", "t": 1794226751.081432, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "500b5b1efc75", "t": 1794226751.519424, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "1963b96bd571", "t": 1794226751.535569, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.5}
+{"id": "934d777405e9", "t": 1794226751.56604, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.6}
+{"id": "abfc8a1ac8aa", "t": 1794226751.598017, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "4fd74be52486", "t": 1794226751.637405, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 26.2}
+{"id": "3dda16b747e3", "t": 1794226751.6698399, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "7ee9a849f55f", "t": 1794226751.884737, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "685b0e999a79", "t": 1794226751.936136, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "2dda46e581f6", "t": 1794226752.5913029, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "db91a85e85b2", "t": 1794226752.594271, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.7}
+{"id": "aa92b61e1aa9", "t": 1794226752.621196, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 20.1}
+{"id": "2357bc60c22f", "t": 1794226752.646625, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "201d4b758162", "t": 1794226752.787411, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "1312cf7d047a", "t": 1794226753.0129962, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "c218bc9c46f2", "t": 1794226753.994453, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 20.2}
+{"id": "f299fa8d3e8e", "t": 1794226754.021908, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 20.8}
+{"id": "8933b10e5074", "t": 1794226754.051637, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.5}
+{"id": "c6bc2836a9fd", "t": 1794226754.082089, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 18.9}
+{"id": "e2342ccbbbd4", "t": 1794226754.106349, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.2}
+{"id": "0bec453934e4", "t": 1794226754.133943, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "a563d6b63274", "t": 1794226754.248845, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "9acc3ace46b9", "t": 1794226754.7500212, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.0}
+{"id": "e1c19186ea84", "t": 1794226754.7835531, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "a9dde1a98122", "t": 1794226754.844317, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.1}
+{"id": "4b1c83338d5a", "t": 1794226754.873587, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.5}
+{"id": "6a30e5970e6b", "t": 1794226754.9044218, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 20.4}
+{"id": "485fd57f5300", "t": 1794226754.934475, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.6}
+{"id": "5e6a162833c8", "t": 1794226754.966099, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.4}
+{"id": "629de4f717d5", "t": 1794226754.9983842, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 26.3}
+{"id": "31c0660dd0f4", "t": 1794226755.031195, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "1e7c384e6db6", "t": 1794226755.1827662, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "28b0911db40e", "t": 1794226755.646711, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.2}
+{"id": "4bfcdc31f0e1", "t": 1794226755.678333, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "9b9185e27512", "t": 1794226755.7711968, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "4a17be3782fb", "t": 1794226756.1364338, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "0cac08456eb1", "t": 1794226756.687552, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.0}
+{"id": "66a325dab76b", "t": 1794226756.71156, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "e2e1ded658fe", "t": 1794226756.849787, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.1}
+{"id": "794ba44290d5", "t": 1794226756.877955, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.4}
+{"id": "7a6565c3bb1f", "t": 1794226756.90866, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.4}
+{"id": "e3f70f3dde11", "t": 1794226756.936189, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "0c9b2cb0e7bb", "t": 1794226757.076056, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.6}
+{"id": "53655e7865c1", "t": 1794226757.105504, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "df579280a48e", "t": 1794226757.161859, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "3b678f996b5b", "t": 1794226757.410037, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "a0bad63acab7", "t": 1794226758.259435, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "fc203e4e64f3", "t": 1794226758.265447, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.1}
+{"id": "a4ef807b21d4", "t": 1794226758.34009, "model": "m", "step": "", "prompt_tokens": 1, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per day (RPD): Limit 100000, Used 99999, Requested 1. Please try again in 0.855s."}
+{"id": "f1929ff2b7d3", "t": 1794226758.360398, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.4}
+{"id": "20993dad3c92", "t": 1794226758.386108, "model": "m", "step": "", "prompt_tokens": 1, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per minute (RPM): Limit 1, Used 1, Requested 1. Please try again in 59.974s."}
+{"id": "bfac3b9039f2", "t": 1794226758.406231, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "a71871abf83b", "t": 1794226758.413764, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "2499e9ef48ee", "t": 1794226758.4147, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "e01a24abc102", "t": 1794226758.415703, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "108d4a913494", "t": 1794226758.4167209, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "32b630818a3a", "t": 1794226758.417697, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "655a01954c1a", "t": 1794226758.419332, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "361d9254ee73", "t": 1794226758.4202418, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "cc28d1bca1f7", "t": 1794226758.421216, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "b9635f299375", "t": 1794226758.4221592, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "19bfe8c9b83e", "t": 1794226758.423025, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "9a4b10bfaf9f", "t": 1794226758.423858, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "deceaa7f5362", "t": 1794226758.425897, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "a9774b3f89c4", "t": 1794226758.426773, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "347e61677df7", "t": 1794226758.4276521, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "8a28c13e6931", "t": 1794226758.428593, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "a9e5227af4b3", "t": 1794226758.429445, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "20b0d727c76c", "t": 1794226758.430262, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "bd0a87d9e2a9", "t": 1794226758.436641, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "cec1f78df72c", "t": 1794226758.437502, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "b252b09eb71a", "t": 1794226758.438355, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "f3a4d477f15e", "t": 1794226758.439209, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "3bb458e642f1", "t": 1794226758.440021, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "1d985f02a3f0", "t": 1794226758.440879, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "253a39b27db3", "t": 1794226758.4472802, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "ac3fa77a3f3f", "t": 1794226760.1545548, "model": "openai/gpt-oss-20b", "step": "understand", "prompt_tokens": 229, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 28.2}
+{"id": "0006409d3f51", "t": 1794226761.36558, "model": "openai/gpt-oss-120b", "step": "draft", "prompt_tokens": 1011, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 41.0}
+{"id": "74176e531ea6", "t": 1794226763.531759, "model": "openai/gpt-oss-120b", "step": "draft", "prompt_tokens": 1192, "status": 429, "msg": "Rate limit reached for model `openai/gpt-oss-120b` in organization `org_standin` service tier `on_demand` on tokens per day (TPD): Limit 10000000, Used 9999884, Requested 1592. Please try again in 12.754s."}
+{"id": "98b4d22500b4", "t": 1794226763.55166, "model": "openai/gpt-oss-20b", "step": "understand", "prompt_tokens": 225, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 28.2}
+{"id": "523ee6608957", "t": 1794226764.637074, "model": "openai/gpt-oss-120b", "step": "draft", "prompt_tokens": 1638, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 38.6}
+{"id": "1bc693c2ef08", "t": 1794226764.893843, "model": "m", "step": "draft", "prompt_tokens": 18, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 26.4}
+{"id": "12f015bd582f", "t": 1794226764.946795, "model": "m", "step": "", "prompt_tokens": 75, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.6}
+{"id": "a1c1cc00afdc", "t": 1794226764.977098, "model": "m", "step": "", "prompt_tokens": 75, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on tokens per minute (TPM): Limit 200, Used 75, Requested 125. Please try again in 0.270s."}
+{"id": "b9e550c46dae", "t": 1794226764.995239, "model": "m", "step": "", "prompt_tokens": 75, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.3}
+{"id": "497d7e86e158", "t": 1794226765.0300941, "model": "m", "step": "", "prompt_tokens": 75, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per day (RPD): Limit 100000, Used 99999, Requested 1. Please try again in 0.829s."}
+{"id": "0a45892e2d7a", "t": 1794226765.046941, "model": "m", "step": "", "prompt_tokens": 75, "status": 503}
+{"id": "40cb901749be", "t": 1794226765.060127, "model": "m", "step": "", "prompt_tokens": 75, "status": "client_gone", "queue_ms": 0.0, "slow": false, "total_ms": 304.8}
+{"id": "fedf32e7ba9c", "t": 1794226910.19377, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "b10eacd18732", "t": 1794226910.4214048, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "cf0feff66c0d", "t": 1794226910.727306, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.2}
+{"id": "a348dbc8be65", "t": 1794226910.75913, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "51a6663ef897", "t": 1794226910.909188, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "aed66bfe477b", "t": 1794226910.912941, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.9}
+{"id": "25b3f63916a7", "t": 1794226910.9426281, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "38d36cc84586", "t": 1794226911.100255, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "897e2d31cc3d", "t": 1794226911.3851562, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "4ab17e25e27b", "t": 1794226911.3891, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.9}
+{"id": "c408ad6bdb20", "t": 1794226911.4185522, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.3}
+{"id": "8486f1064c24", "t": 1794226911.4521248, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "156f830e8d01", "t": 1794226911.649819, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 26.6}
+{"id": "d3d248444249", "t": 1794226911.6842399, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "778fd87164ef", "t": 1794226911.724761, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "b46eee35d2c5", "t": 1794226911.896884, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "b20f9e1860d8", "t": 1794226912.133881, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "6b4b4007ef32", "t": 1794226912.13939, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.3}
+{"id": "b8097df4750f", "t": 1794226912.169441, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 19.9}
+{"id": "c24b0b0e8169", "t": 1794226912.197825, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "ec1ee17feaba", "t": 1794226912.3321679, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "c4a5e7db79e0", "t": 1794226912.6149602, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "81519c6add58", "t": 1794226913.2115479, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 20.5}
+{"id": "554f130e696f", "t": 1794226913.2384179, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 20.2}
+{"id": "612423aa6146", "t": 1794226913.2640152, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.4}
+{"id": "7d4899d48d54", "t": 1794226913.2949529, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 18.5}
+{"id": "188aa9504306", "t": 1794226913.319792, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.1}
+{"id": "e2035ac99995", "t": 1794226913.3471518, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "98c27ac050f5", "t": 1794226913.478828, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "87e3256d6617", "t": 1794226913.86174, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.9}
+{"id": "e800015efdd2", "t": 1794226913.8877282, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "be33c4229b2c", "t": 1794226913.991922, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.1}
+{"id": "d61c65e6b3b1", "t": 1794226914.020426, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.1}
+{"id": "1868ee462afe", "t": 1794226914.048033, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 19.9}
+{"id": "72358bea80b7", "t": 1794226914.071945, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.6}
+{"id": "0ec9fb4bf8af", "t": 1794226914.0990798, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.9}
+{"id": "b05af44b495b", "t": 1794226914.127578, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.5}
+{"id": "434276f69ac7", "t": 1794226914.156307, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "fd6c836d02ce", "t": 1794226914.2546, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "b591c605ab7f", "t": 1794226914.6120582, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.0}
+{"id": "3902322fc63e", "t": 1794226914.64055, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "281f44eb248a", "t": 1794226914.739054, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "8cb6a5e117bb", "t": 1794226915.157813, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "17fe3227211b", "t": 1794226915.999445, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.2}
+{"id": "8caa2fd014ea", "t": 1794226916.0252512, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "e3d9ff6b30ec", "t": 1794226916.1296918, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.8}
+{"id": "8510c0042d91", "t": 1794226916.1591601, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.3}
+{"id": "8b86ef64ffc9", "t": 1794226916.191971, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.8}
+{"id": "1139742b3663", "t": 1794226916.221534, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "7fcca656dbbe", "t": 1794226916.4204779, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.1}
+{"id": "95c1d8f4a0bb", "t": 1794226916.447993, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "d827c58cd04a", "t": 1794226916.555926, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "90a6cb6e70e4", "t": 1794226916.828199, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "a2d726fee29c", "t": 1794226917.73002, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "ad1f5907c5eb", "t": 1794226917.733088, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.8}
+{"id": "392e2eaa010e", "t": 1794226917.8005812, "model": "m", "step": "", "prompt_tokens": 1, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per day (RPD): Limit 100000, Used 99999, Requested 1. Please try again in 0.854s."}
+{"id": "f390b6323e03", "t": 1794226917.819434, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.2}
+{"id": "f9e100a23567", "t": 1794226917.843415, "model": "m", "step": "", "prompt_tokens": 1, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per minute (RPM): Limit 1, Used 1, Requested 1. Please try again in 59.976s."}
+{"id": "1460d126ab50", "t": 1794226917.862724, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "91308adbc323", "t": 1794226917.86596, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "05a1d1a5b841", "t": 1794226917.866891, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "a76dbc7b45f7", "t": 1794226917.8677912, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "f2d8f58a4caa", "t": 1794226917.8686578, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "7e412760b354", "t": 1794226917.869511, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "fcd42b0f24ec", "t": 1794226917.872531, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "50317e59f56e", "t": 1794226917.873366, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "5c0fb0f18b46", "t": 1794226917.874284, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "181e92c7fd3b", "t": 1794226917.8752031, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "b3e1b9b9a9e5", "t": 1794226917.876069, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "e29fd7d9ad1d", "t": 1794226917.8769841, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "4f104f013587", "t": 1794226917.8798752, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "549c729ddab8", "t": 1794226917.880777, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "4cf260c9b09b", "t": 1794226917.881687, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "4ff9134ec4b0", "t": 1794226917.882581, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "df0f375aeb82", "t": 1794226917.883467, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "5f84ec7c4afd", "t": 1794226917.884438, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "fcd00766aab6", "t": 1794226917.886422, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "cf7c4293651e", "t": 1794226917.8872662, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "e934a9f0edd1", "t": 1794226917.888125, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "2b5ce9d976e0", "t": 1794226917.8889751, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "7777d0050a13", "t": 1794226917.889812, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "36e7f82d67af", "t": 1794226917.890639, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "b11d0c0df70f", "t": 1794226917.899863, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "b9c5e58b0cbb", "t": 1794226918.891389, "model": "openai/gpt-oss-20b", "step": "understand", "prompt_tokens": 229, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 28.2}
+{"id": "cfeeeb6db707", "t": 1794226919.903334, "model": "openai/gpt-oss-120b", "step": "draft", "prompt_tokens": 1011, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 42.4}
+{"id": "42f74ff9fb9c", "t": 1794226921.9653041, "model": "openai/gpt-oss-120b", "step": "draft", "prompt_tokens": 1192, "status": 429, "msg": "Rate limit reached for model `openai/gpt-oss-120b` in organization `org_standin` service tier `on_demand` on tokens per day (TPD): Limit 10000000, Used 9999887, Requested 1192. Please try again in 9.329s."}
+{"id": "4dbe1ff620ad", "t": 1794226921.984855, "model": "openai/gpt-oss-20b", "step": "understand", "prompt_tokens": 225, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 28.0}
+{"id": "7666bbe3166b", "t": 1794226922.985801, "model": "openai/gpt-oss-120b", "step": "draft", "prompt_tokens": 1638, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 40.3}
+{"id": "2f9333d6ea04", "t": 1794226923.261289, "model": "m", "step": "draft", "prompt_tokens": 18, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 26.8}
+{"id": "5d4f3726cc8c", "t": 1794226923.309591, "model": "m", "step": "", "prompt_tokens": 75, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.3}
+{"id": "9db953821ba7", "t": 1794226923.340105, "model": "m", "step": "", "prompt_tokens": 75, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 19.3}
+{"id": "78262ca9a42a", "t": 1794226923.412309, "model": "m", "step": "", "prompt_tokens": 75, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.3}
+{"id": "43a69903472e", "t": 1794226923.4449742, "model": "m", "step": "", "prompt_tokens": 75, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per day (RPD): Limit 100000, Used 99999, Requested 1. Please try again in 0.831s."}
+{"id": "783bc2543228", "t": 1794226923.45948, "model": "m", "step": "", "prompt_tokens": 75, "status": 503}
+{"id": "240551cf5b56", "t": 1794226923.473858, "model": "m", "step": "", "prompt_tokens": 75, "status": "client_gone", "queue_ms": 0.0, "slow": false, "total_ms": 304.4}
+{"id": "62bf604deaf9", "t": 1794226930.649618, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "726bc48028dc", "t": 1794226930.655214, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "94fc1d6b14fc", "t": 1794226931.1175392, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.2}
+{"id": "1b859964fc35", "t": 1794226931.146849, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "76f59444bc02", "t": 1794226931.248149, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "38617800bf2a", "t": 1794226931.250586, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.6}
+{"id": "45ec748ee602", "t": 1794226931.278295, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "c354ff682a4b", "t": 1794226931.308647, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "e90c09f8783d", "t": 1794226931.4074528, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "d6b313329aa4", "t": 1794226931.414641, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.7}
+{"id": "371198ceb3e9", "t": 1794226931.4449542, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.5}
+{"id": "1d4953a825a9", "t": 1794226931.476715, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "39df24ddb627", "t": 1794226931.49174, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.7}
+{"id": "c9f80121fb4c", "t": 1794226931.52328, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "fa24a8d52582", "t": 1794226931.5789351, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "d08dc67664bf", "t": 1794226931.8176792, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "8a9da311d713", "t": 1794226932.7016902, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "41656440a0e2", "t": 1794226932.705919, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.3}
+{"id": "bc9ace92baf6", "t": 1794226932.735007, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 19.8}
+{"id": "eb91b2e83705", "t": 1794226932.759022, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "58ee71609e3e", "t": 1794226932.904077, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "4c0ef47961ca", "t": 1794226932.954689, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "1ea2233eba08", "t": 1794226933.757182, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 19.1}
+{"id": "8eb1410ca211", "t": 1794226933.781056, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 19.5}
+{"id": "4e345039d405", "t": 1794226933.8045151, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.6}
+{"id": "b2990f76d09f", "t": 1794226933.8293319, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 17.7}
+{"id": "770e2afad70b", "t": 1794226933.851095, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 20.5}
+{"id": "e464830231dd", "t": 1794226933.874288, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "c5ab29504875", "t": 1794226933.9627361, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "c15c9f913ce1", "t": 1794226934.085397, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.9}
+{"id": "3991da825a23", "t": 1794226934.114414, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "913aece2d82d", "t": 1794226934.1745741, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 21.8}
+{"id": "9dbd63a17125", "t": 1794226934.200414, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 20.6}
+{"id": "869ebc7f3ade", "t": 1794226934.2242591, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 19.4}
+{"id": "d0b2d0b7cb23", "t": 1794226934.246441, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.3}
+{"id": "8790e53bf6ab", "t": 1794226934.272108, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.5}
+{"id": "49251969fcc5", "t": 1794226934.299409, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.5}
+{"id": "59c2b6e3b0c5", "t": 1794226934.32814, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "387555d74118", "t": 1794226934.4291148, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "e61f5149c476", "t": 1794226934.569559, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.3}
+{"id": "76d1fe8605b5", "t": 1794226934.5998132, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "7ae6d7623dca", "t": 1794226934.809482, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "9129a7e39bad", "t": 1794226934.9942322, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "389ee9d7fcf2", "t": 1794226935.0898209, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.5}
+{"id": "0fb14f825091", "t": 1794226935.1191082, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "f7c8e30786a9", "t": 1794226935.2546391, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 24.4}
+{"id": "7c2b5f01167f", "t": 1794226935.283482, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 25.2}
+{"id": "9446c056be10", "t": 1794226935.312928, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 30.6}
+{"id": "59c20fabf883", "t": 1794226935.345657, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "d177ddf0a70d", "t": 1794226935.5472372, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.9}
+{"id": "fa1d13d7780d", "t": 1794226935.574255, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "9d2553e8f5a2", "t": 1794226935.6043131, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "64629d0d7056", "t": 1794226936.031571, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "535f37b4b00e", "t": 1794226936.096174, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "fa7c0d351370", "t": 1794226936.100075, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 22.0}
+{"id": "f61b28ee02e3", "t": 1794226936.169441, "model": "m", "step": "", "prompt_tokens": 1, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per day (RPD): Limit 100000, Used 99999, Requested 1. Please try again in 0.854s."}
+{"id": "48a2ee96ff0d", "t": 1794226936.18851, "model": "m", "step": "", "prompt_tokens": 1, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.4}
+{"id": "d5e47859062f", "t": 1794226936.213842, "model": "m", "step": "", "prompt_tokens": 1, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per minute (RPM): Limit 1, Used 1, Requested 1. Please try again in 59.975s."}
+{"id": "6fca15c33940", "t": 1794226936.232862, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "50854ffca8ab", "t": 1794226936.238301, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "3ce51ab26fe5", "t": 1794226936.239357, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "e01cdeabf3df", "t": 1794226936.240344, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "ed2d68389ed9", "t": 1794226936.2413619, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "7552161ef63a", "t": 1794226936.2423198, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "cc29243cf107", "t": 1794226936.2510562, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "31ebb9d93172", "t": 1794226936.252042, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "0d6d0f763658", "t": 1794226936.2530618, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "850e686208df", "t": 1794226936.2539861, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "de346790f095", "t": 1794226936.254949, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "c1e420411014", "t": 1794226936.2558908, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "83ee51b5a875", "t": 1794226936.262826, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "f2f4ddacb69a", "t": 1794226936.2638469, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "e26b58acb6a4", "t": 1794226936.264802, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "8926e7e09a19", "t": 1794226936.265829, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "d65dcfc3d012", "t": 1794226936.266807, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "15c8b1109c58", "t": 1794226936.267721, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "1d655dfc313e", "t": 1794226936.273536, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "ef25d3abf85a", "t": 1794226936.274553, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "6f23768f7f35", "t": 1794226936.275629, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "f79178bec7c9", "t": 1794226936.276631, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "43ee0d955641", "t": 1794226936.277569, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "fac386ff68ef", "t": 1794226936.27851, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "c1da9051b317", "t": 1794226936.285028, "model": "m", "step": "", "prompt_tokens": 1, "status": 503}
+{"id": "190622f3ee90", "t": 1794226937.326477, "model": "openai/gpt-oss-20b", "step": "understand", "prompt_tokens": 229, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 28.2}
+{"id": "b33ae018b575", "t": 1794226938.351153, "model": "openai/gpt-oss-120b", "step": "draft", "prompt_tokens": 1011, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 42.2}
+{"id": "a55d3e949164", "t": 1794226940.452778, "model": "openai/gpt-oss-120b", "step": "draft", "prompt_tokens": 1192, "status": 429, "msg": "Rate limit reached for model `openai/gpt-oss-120b` in organization `org_standin` service tier `on_demand` on tokens per day (TPD): Limit 10000000, Used 9999884, Requested 1192. Please try again in 9.300s."}
+{"id": "22b14efe0d0e", "t": 1794226940.473262, "model": "openai/gpt-oss-20b", "step": "understand", "prompt_tokens": 225, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 28.2}
+{"id": "0042020758c6", "t": 1794226941.5896971, "model": "openai/gpt-oss-120b", "step": "draft", "prompt_tokens": 1638, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 39.2}
+{"id": "ca5446d8d776", "t": 1794226941.804766, "model": "m", "step": "draft", "prompt_tokens": 18, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 26.9}
+{"id": "030823cd9cff", "t": 1794226941.8558872, "model": "m", "step": "", "prompt_tokens": 75, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.4}
+{"id": "bdacf24b145b", "t": 1794226941.887337, "model": "m", "step": "", "prompt_tokens": 75, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on tokens per minute (TPM): Limit 100, Used 74, Requested 75. Please try again in 29.969s."}
+{"id": "f44f0a0f4bc7", "t": 1794226941.906007, "model": "m", "step": "", "prompt_tokens": 75, "status": "ok", "queue_ms": 0.0, "slow": false, "total_ms": 23.3}
+{"id": "430cfae9d81d", "t": 1794226941.9409971, "model": "m", "step": "", "prompt_tokens": 75, "status": 429, "msg": "Rate limit reached for model `m` in organization `org_standin` service tier `on_demand` on requests per day (RPD): Limit 100000, Used 99999, Requested 1. Please try again in 0.829s."}
+{"id": "ee4a07c264b6", "t": 1794226941.957974, "model": "m", "step": "", "prompt_tokens": 75, "status": 503}
+{"id": "f19998e887e9", "t": 1794226941.971794, "model": "m", "step": "", "prompt_tokens": 75, "status": "client_gone", "queue_ms": 0.0, "slow": false, "total_ms": 305.3}

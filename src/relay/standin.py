@@ -30,7 +30,6 @@ import random
 import re
 import time
 import uuid
-from collections import deque
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -75,19 +74,24 @@ def approx_tokens(text: str) -> int:
 
 @dataclass
 class Buckets:
-    """Rate-limit state for one model.
+    """Rate-limit state for one model: four continuously refilling buckets.
+
+    Measured on Groq (2026-11-09): RPM recovers one request every 60/RPM s,
+    TPM refills at TPM/60 tokens per second, and the daily request budget
+    refills continuously at RPD/86400 per second (``x-ratelimit-reset-requests``
+    grew by exactly 86.4 s per request at RPD 1000). TPD is assumed to behave
+    the same way; it is not exposed in headers.
 
     Attributes:
         rpm: Requests-per-minute limit.
         tpm: Tokens-per-minute limit.
         rpd: Requests-per-day limit.
         tpd: Tokens-per-day limit.
-        tokens: Current TPM bucket level (refills at ``tpm/60`` per second).
-        req_times: Admission timestamps inside the last 60 s (RPM window).
-        day_requests: Requests counted today.
-        day_tokens: Tokens counted today.
-        day_started: When the current day window began.
-        updated: Last refill time of the TPM bucket.
+        tokens: Tokens available in the TPM bucket.
+        req_used: Requests counted against RPM (drains at ``rpm/60`` per second).
+        day_requests: Requests counted against RPD (drains at ``rpd/86400`` per second).
+        day_tokens: Tokens counted against TPD (drains at ``tpd/86400`` per second).
+        updated: Time of the last refill.
     """
 
     rpm: int
@@ -95,25 +99,23 @@ class Buckets:
     rpd: int
     tpd: int
     tokens: float = 0.0
-    req_times: deque = field(default_factory=deque)
-    day_requests: int = 0
-    day_tokens: int = 0
-    day_started: float = field(default_factory=time.time)
+    req_used: float = 0.0
+    day_requests: float = 0.0
+    day_tokens: float = 0.0
     updated: float = field(default_factory=time.time)
 
-    def refill(self, now: float, day_reset_s: float) -> None:
-        """Advances time: refills TPM, expires the RPM window, resets the day.
+    def refill(self, now: float) -> None:
+        """Advances all four buckets to ``now``.
 
         Args:
             now: Current unix time.
-            day_reset_s: Length of the day window.
         """
-        self.tokens = min(self.tpm, self.tokens + (now - self.updated) * self.tpm / 60.0)
+        dt = max(0.0, now - self.updated)
+        self.tokens = min(self.tpm, self.tokens + dt * self.tpm / 60.0)
+        self.req_used = max(0.0, self.req_used - dt * self.rpm / 60.0)
+        self.day_requests = max(0.0, self.day_requests - dt * self.rpd / 86400.0)
+        self.day_tokens = max(0.0, self.day_tokens - dt * self.tpd / 86400.0)
         self.updated = now
-        while self.req_times and now - self.req_times[0] >= 60:
-            self.req_times.popleft()
-        if now - self.day_started >= day_reset_s:
-            self.day_requests, self.day_tokens, self.day_started = 0, 0, now
 
 
 class StandIn:
@@ -207,30 +209,31 @@ class StandIn:
         """
         now = time.time()
         b = self._bucket(model)
-        b.refill(now, self.cfg["limits"]["day_reset_s"])
-        day_left_s = b.day_started + self.cfg["limits"]["day_reset_s"] - now
+        b.refill(now)
         reject = None
         if b.day_requests + 1 > b.rpd:
-            reject = ("requests per day (RPD)", b.rpd, b.day_requests, 1, day_left_s)
+            wait = (b.day_requests + 1 - b.rpd) * 86400.0 / b.rpd
+            reject = ("requests per day (RPD)", b.rpd, int(b.day_requests), 1, wait)
         elif b.day_tokens + cost > b.tpd:
-            reject = ("tokens per day (TPD)", b.tpd, b.day_tokens, cost, day_left_s)
-        elif len(b.req_times) + 1 > b.rpm:
-            wait = 60 - (now - b.req_times[0])
-            reject = ("requests per minute (RPM)", b.rpm, len(b.req_times), 1, wait)
+            wait = (b.day_tokens + cost - b.tpd) * 86400.0 / b.tpd
+            reject = ("tokens per day (TPD)", b.tpd, int(b.day_tokens), cost, wait)
+        elif b.req_used + 1 > b.rpm:
+            wait = (b.req_used + 1 - b.rpm) * 60.0 / b.rpm
+            reject = ("requests per minute (RPM)", b.rpm, round(b.req_used), 1, wait)
         elif cost > b.tokens:
             wait = (cost - b.tokens) * 60.0 / b.tpm
             reject = ("tokens per minute (TPM)", b.tpm, int(b.tpm - b.tokens), cost, wait)
         if reject is None:
             b.tokens -= cost
-            b.req_times.append(now)
+            b.req_used += 1
             b.day_requests += 1
             b.day_tokens += cost
         headers = {
             "x-ratelimit-limit-requests": str(b.rpd),
             "x-ratelimit-limit-tokens": str(b.tpm),
-            "x-ratelimit-remaining-requests": str(max(0, b.rpd - b.day_requests)),
+            "x-ratelimit-remaining-requests": str(max(0, int(b.rpd - b.day_requests))),
             "x-ratelimit-remaining-tokens": str(max(0, int(b.tokens))),
-            "x-ratelimit-reset-requests": f"{max(0.0, day_left_s):.2f}s",
+            "x-ratelimit-reset-requests": f"{b.day_requests * 86400.0 / b.rpd:.2f}s",
             "x-ratelimit-reset-tokens": f"{max(0.0, (b.tpm - b.tokens) * 60 / b.tpm):.2f}s",
         }
         if reject is None:
@@ -486,9 +489,9 @@ def create_app(cfg: dict | None = None) -> FastAPI:
             "buckets": {
                 m: {
                     "tokens": round(b.tokens),
-                    "rpm_window": len(b.req_times),
-                    "day_requests": b.day_requests,
-                    "day_tokens": b.day_tokens,
+                    "rpm_used": round(b.req_used, 1),
+                    "day_requests": round(b.day_requests, 1),
+                    "day_tokens": round(b.day_tokens),
                 }
                 for m, b in sim.buckets.items()
             },

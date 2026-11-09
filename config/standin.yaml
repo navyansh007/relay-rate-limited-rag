@@ -7,16 +7,16 @@ host: 127.0.0.1
 port: 8900
 seed: 7
 
-# Rate-limit window semantics are a guess until probes tell us otherwise:
-#   minute buckets: token bucket refilling continuously (limit/60 per second)
-#   day buckets: fixed counter, reset `day_reset_s` after first use
+# All four limits refill continuously (measured on Groq for RPM, TPM and RPD;
+# assumed for TPD, which no header exposes). Values measured 2026-11-09 for
+# gpt-oss-20b and gpt-oss-120b on the free tier; TPD is the docs' value.
 limits:
-  default: {rpm: 30, tpm: 6000, rpd: 14400, tpd: 500000}
+  default: {rpm: 30, tpm: 8000, rpd: 1000, tpd: 200000}
   per_model: {}
-  day_reset_s: 86400
-  # Count prompt + max_tokens against TPM at admission (as Groq appears to),
-  # then refund the unused completion budget when the reply ends.
-  reserve_max_tokens: true
+  # Groq does NOT reserve max_tokens against TPM (measured: max_tokens 16 vs
+  # 2000 both charged ~95 tokens). Charge the prompt at admission, then the
+  # completion as it is produced.
+  reserve_max_tokens: false
 
 latency:
   # Server-side capacity: requests beyond `workers` queue inside the stand-in.

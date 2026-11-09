@@ -1,0 +1,49 @@
+    0 t=1794226579.1 ok                   kind=None retry_after=None
+    1 t=1794226579.6 ok                   kind=None retry_after=None
+    2 t=1794226580.1 ok                   kind=None retry_after=None
+    3 t=1794226580.6 ok                   kind=None retry_after=None
+    4 t=1794226581.1 ok                   kind=None retry_after=None
+    5 t=1794226581.6 ok                   kind=None retry_after=None
+    6 t=1794226582.1 ok                   kind=None retry_after=None
+    7 t=1794226582.6 ok                   kind=None retry_after=None
+    8 t=1794226583.1 ok                   kind=None retry_after=None
+    9 t=1794226583.6 ok                   kind=None retry_after=None
+   10 t=1794226584.1 ok                   kind=None retry_after=None
+   11 t=1794226584.6 ok                   kind=None retry_after=None
+   12 t=1794226585.1 ok                   kind=None retry_after=None
+   13 t=1794226585.6 ok                   kind=None retry_after=None
+   14 t=1794226586.1 ok                   kind=None retry_after=None
+   15 t=1794226586.6 ok                   kind=None retry_after=None
+   16 t=1794226587.1 ok                   kind=None retry_after=None
+   17 t=1794226587.6 ok                   kind=None retry_after=None
+   18 t=1794226588.1 ok                   kind=None retry_after=None
+   19 t=1794226588.6 ok                   kind=None retry_after=None
+   20 t=1794226589.1 ok                   kind=None retry_after=None
+   21 t=1794226589.6 ok                   kind=None retry_after=None
+   22 t=1794226590.1 ok                   kind=None retry_after=None
+   23 t=1794226590.6 ok                   kind=None retry_after=None
+   24 t=1794226591.1 ok                   kind=None retry_after=None
+   25 t=1794226591.6 ok                   kind=None retry_after=None
+   26 t=1794226592.1 ok                   kind=None retry_after=None
+   27 t=1794226592.6 ok                   kind=None retry_after=None
+   28 t=1794226593.1 ok                   kind=None retry_after=None
+   29 t=1794226593.6 ok                   kind=None retry_after=None
+   30 t=1794226594.1 rate_limited_minute  kind=requests/minute retry_after=2.0
+   31 t=1794226594.6 rate_limited_minute  kind=requests/minute retry_after=2.0
+   32 t=1794226595.1 rate_limited_minute  kind=requests/minute retry_after=2.0
+   33 t=1794226595.6 rate_limited_minute  kind=requests/minute retry_after=2.0
+   34 t=1794226596.1 ok                   kind=None retry_after=None
+   35 t=1794226596.6 rate_limited_minute  kind=requests/minute retry_after=2.0
+   36 t=1794226597.1 rate_limited_minute  kind=requests/minute retry_after=2.0
+   37 t=1794226597.6 rate_limited_minute  kind=requests/minute retry_after=2.0
+   38 t=1794226598.1 ok                   kind=None retry_after=None
+   39 t=1794226598.6 rate_limited_minute  kind=requests/minute retry_after=2.0
+
+== rpm: n=40 statuses={'ok': 32, 'rate_limited_minute': 8}
+   ttft ms  p50=584 p95=1637 max=1661
+   total ms p50=586 p95=1638 max=1663
+   mean tokens in/out 78/17
+   last headers: {'retry-after': '2', 'x-ratelimit-limit-requests': '1000', 'x-ratelimit-remaining-requests': '926', 'x-ratelimit-reset-requests': '1h46m33.599s'}
+   first non-ok: rate_limited_minute http=429 kind=requests/minute retry_after=2.0 body={"error":{"message":"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01j1ybhsyfepxvsbknxv4728pe` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Requested 1. Please try again in 2s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.c
+
+run=probe-425c6e tokens used this run: 3040

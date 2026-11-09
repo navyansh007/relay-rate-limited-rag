@@ -167,6 +167,7 @@ class RetryingCaller:
         policy: RetryPolicy,
         typical_call_s: float = 1.5,
         rng: random.Random | None = None,
+        expected_out_tokens: int = 200,
     ):
         """Initialises the caller.
 
@@ -176,6 +177,7 @@ class RetryingCaller:
             policy: Retry policy.
             typical_call_s: Assumed duration of one call.
             rng: Random source for jitter.
+            expected_out_tokens: Completion size reserved per call at admission.
         """
         self.client = client
         self.limiter = limiter
@@ -183,6 +185,7 @@ class RetryingCaller:
         self.budget = RetryBudget(policy.budget_ratio)
         self.typical_call_s = typical_call_s
         self.rng = rng or random.Random()
+        self.expected_out_tokens = expected_out_tokens
 
     def _backoff(self, attempt_no: int, result: CallResult) -> float:
         """Computes the sleep before retry number ``attempt_no``.
@@ -229,7 +232,9 @@ class RetryingCaller:
             All attempts and the reason for stopping.
         """
         out = CallOutcome()
-        reserve = est_prompt_tokens + max_tokens
+        # Groq charges prompt + actual output, not max_tokens (measured), so
+        # reserve a typical completion and let the limiter settle afterwards.
+        reserve = est_prompt_tokens + min(max_tokens, self.expected_out_tokens)
         backoff = 0.0
         max_retries = {"budgeted": self.policy.max_retries, "naive": 5, "none": 0}[
             self.policy.policy

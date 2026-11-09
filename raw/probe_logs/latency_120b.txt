@@ -1,0 +1,48 @@
+    0 ok                   ttft=    650 total=    652 rem_tok=7858 rem_req=999
+    1 ok                   ttft=   1125 total=   1126 rem_tok=7905 rem_req=998
+    2 ok                   ttft=    560 total=    564 rem_tok=7858 rem_req=997
+    3 ok                   ttft=    702 total=    705 rem_tok=7858 rem_req=996
+    4 ok                   ttft=    619 total=    624 rem_tok=7905 rem_req=995
+    5 ok                   ttft=    591 total=    594 rem_tok=7905 rem_req=994
+    6 ok                   ttft=    367 total=    371 rem_tok=7905 rem_req=993
+    7 ok                   ttft=    883 total=    884 rem_tok=7905 rem_req=992
+    8 ok                   ttft=    883 total=    884 rem_tok=7905 rem_req=991
+    9 ok                   ttft=    708 total=    712 rem_tok=7905 rem_req=990
+   10 ok                   ttft=   1300 total=   1301 rem_tok=7905 rem_req=989
+   11 ok                   ttft=    907 total=    914 rem_tok=7905 rem_req=988
+   12 ok                   ttft=    385 total=    387 rem_tok=7905 rem_req=987
+   13 ok                   ttft=    952 total=    953 rem_tok=7905 rem_req=986
+   14 ok                   ttft=    879 total=    880 rem_tok=7905 rem_req=985
+   15 ok                   ttft=    781 total=    781 rem_tok=7905 rem_req=984
+   16 ok                   ttft=    399 total=    399 rem_tok=7905 rem_req=983
+   17 ok                   ttft=    585 total=    586 rem_tok=7905 rem_req=982
+   18 ok                   ttft=    558 total=    561 rem_tok=7905 rem_req=981
+   19 ok                   ttft=    395 total=    397 rem_tok=7905 rem_req=980
+   20 ok                   ttft=    580 total=    582 rem_tok=7905 rem_req=979
+   21 ok                   ttft=    406 total=    408 rem_tok=7905 rem_req=978
+   22 ok                   ttft=    649 total=    651 rem_tok=7905 rem_req=977
+   23 ok                   ttft=    569 total=    573 rem_tok=7905 rem_req=976
+   24 ok                   ttft=    398 total=    403 rem_tok=7905 rem_req=975
+   25 ok                   ttft=    639 total=    643 rem_tok=7905 rem_req=974
+   26 ok                   ttft=    567 total=    569 rem_tok=7905 rem_req=973
+   27 ok                   ttft=    572 total=    574 rem_tok=7905 rem_req=972
+   28 ok                   ttft=    518 total=    519 rem_tok=7905 rem_req=971
+   29 ok                   ttft=    756 total=    760 rem_tok=7905 rem_req=970
+   30 ok                   ttft=    418 total=    420 rem_tok=7905 rem_req=969
+   31 ok                   ttft=   1132 total=   1134 rem_tok=7905 rem_req=968
+   32 ok                   ttft=    691 total=    693 rem_tok=7905 rem_req=967
+   33 ok                   ttft=    401 total=    404 rem_tok=7905 rem_req=966
+   34 ok                   ttft=    564 total=    567 rem_tok=7905 rem_req=965
+   35 ok                   ttft=   1078 total=   1080 rem_tok=7905 rem_req=964
+   36 ok                   ttft=    646 total=    649 rem_tok=7905 rem_req=963
+   37 ok                   ttft=    874 total=    875 rem_tok=7905 rem_req=962
+   38 ok                   ttft=    722 total=    725 rem_tok=7905 rem_req=961
+   39 ok                   ttft=    963 total=    964 rem_tok=7905 rem_req=960
+
+== latency: n=40 statuses={'ok': 40}
+   ttft ms  p50=646 p95=1132 max=1300
+   total ms p50=649 p95=1134 max=1301
+   mean tokens in/out 78/17
+   last headers: {'x-ratelimit-limit-requests': '1000', 'x-ratelimit-limit-tokens': '8000', 'x-ratelimit-remaining-requests': '960', 'x-ratelimit-remaining-tokens': '7905', 'x-ratelimit-reset-requests': '57m36s', 'x-ratelimit-reset-tokens': '712ms'}
+
+run=probe-42ecfb tokens used this run: 3800

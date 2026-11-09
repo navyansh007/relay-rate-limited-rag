@@ -1,0 +1,13 @@
+  0 ok                   in=2206 kind=None retry_after=None headers={'x-ratelimit-limit-requests': '1000', 'x-ratelimit-limit-tokens': '8000', 'x-ratelimit-remaining-requests': '924', 'x-ratelimit-remaining-tokens': '5777', 'x-ratelimit-reset-requests': '1h49m26.4s', 'x-ratelimit-reset-tokens': '16.672s'}
+  1 ok                   in=2206 kind=None retry_after=None headers={'x-ratelimit-limit-requests': '1000', 'x-ratelimit-limit-tokens': '8000', 'x-ratelimit-remaining-requests': '923', 'x-ratelimit-remaining-tokens': '3650', 'x-ratelimit-reset-requests': '1h50m52.8s', 'x-ratelimit-reset-tokens': '32.625s'}
+  2 ok                   in=2206 kind=None retry_after=None headers={'x-ratelimit-limit-requests': '1000', 'x-ratelimit-limit-tokens': '8000', 'x-ratelimit-remaining-requests': '922', 'x-ratelimit-remaining-tokens': '1481', 'x-ratelimit-reset-requests': '1h52m19.2s', 'x-ratelimit-reset-tokens': '48.892s'}
+  3 rate_limited_minute  in=0 kind=tokens/minute retry_after=5.0 headers={'retry-after': '5', 'x-ratelimit-limit-requests': '1000', 'x-ratelimit-limit-tokens': '8000', 'x-ratelimit-remaining-requests': '922', 'x-ratelimit-remaining-tokens': '1590', 'x-ratelimit-reset-requests': '1h52m19.2s', 'x-ratelimit-reset-tokens': '48.075s'}
+
+== tpm: n=4 statuses={'ok': 3, 'rate_limited_minute': 1}
+   ttft ms  p50=712 p95=753 max=753
+   total ms p50=721 p95=754 max=754
+   mean tokens in/out 2206/16
+   last headers: {'retry-after': '5', 'x-ratelimit-limit-requests': '1000', 'x-ratelimit-limit-tokens': '8000', 'x-ratelimit-remaining-requests': '922', 'x-ratelimit-remaining-tokens': '1590', 'x-ratelimit-reset-requests': '1h52m19.2s', 'x-ratelimit-reset-tokens': '48.075s'}
+   first non-ok: rate_limited_minute http=429 kind=tokens/minute retry_after=5.0 body={"error":{"message":"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01j1ybhsyfepxvsbknxv4728pe` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6410, Requested 2223. Please try again in 4.7475s. Need more tokens? Upgrade to Dev Tier today at https://cons
+
+run=probe-d7cc21 tokens used this run: 6666

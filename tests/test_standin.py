@@ -38,7 +38,7 @@ async def test_streams_ok_with_usage(base_url):
 
 
 async def test_tpm_limit_is_per_minute_429(base_url):
-    admin(base_url, {"limits": {"default": {"tpm": 200}}})
+    admin(base_url, {"limits": {"default": {"tpm": 100}}})
     first = await call(base_url)
     second = await call(base_url)
     assert first.status == OK
