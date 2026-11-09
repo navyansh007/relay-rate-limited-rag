@@ -9,28 +9,27 @@ provider:
   # Abort if the stream stalls between chunks for this long.
   stall_timeout_s: 5.0
 
+# This free account has no Llama access (404 model_not_found, 2026-11-09);
+# GET /models lists gpt-oss-120b, gpt-oss-20b, qwen3.8-27b, allam-2-7b.
 models:
-  understand: llama-3.1-8b-instant
+  understand: openai/gpt-oss-20b
   draft: openai/gpt-oss-120b
-  draft_fallback: llama-3.1-8b-instant
-  verify: llama-3.1-8b-instant
+  draft_fallback: openai/gpt-oss-20b
+  verify: openai/gpt-oss-20b
 
 # Starting point only; limiter corrects these from response headers.
 # Free-tier values are not in the public docs: fill from probes.
 limits:
-  llama-3.1-8b-instant: {rpm: 30, tpm: 6000, rpd: 14400, tpd: 500000}
   openai/gpt-oss-120b: {rpm: 30, tpm: 8000, rpd: 1000, tpd: 200000}
   openai/gpt-oss-20b: {rpm: 30, tpm: 8000, rpd: 1000, tpd: 200000}
-  llama-3.3-70b-versatile: {rpm: 30, tpm: 12000, rpd: 1000, tpd: 100000}
+  qwen/qwen3.8-27b: {rpm: 30, tpm: 8000, rpd: 1000, tpd: 200000}
 
 # USD per 1M tokens (input, output). Used for "cost per 1,000 answers".
-# llama prices are "contact sales" on the docs page; values here are
-# assumptions until measured.
+# From console.groq.com/docs/models (fetched 2026-11-09).
 prices:
   openai/gpt-oss-120b: [0.15, 0.60]
   openai/gpt-oss-20b: [0.075, 0.30]
-  llama-3.1-8b-instant: [0.05, 0.08]
-  llama-3.3-70b-versatile: [0.59, 0.79]
+  qwen/qwen3.8-27b: [0.80, 4.00]
 
 # Safety net so dev work cannot silently burn the shared daily budget.
 spend_guard:

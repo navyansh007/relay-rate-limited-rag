@@ -6,11 +6,11 @@ and watch the spend, because the daily budget is shared with everything else.
 
 Typical usage example:
 
-    uv run python -m relay.probes latency     --model llama-3.1-8b-instant --n 40 --gap 3
-    uv run python -m relay.probes concurrency --model llama-3.1-8b-instant --levels 1,2,4,8
-    uv run python -m relay.probes rpm         --model llama-3.1-8b-instant --n 40 --window 20
-    uv run python -m relay.probes tpm         --model llama-3.1-8b-instant --prompt-tokens 2500
-    uv run python -m relay.probes recover     --model llama-3.1-8b-instant --poll 1 --max-s 90
+    uv run python -m relay.probes latency     --model openai/gpt-oss-20b --n 40 --gap 3
+    uv run python -m relay.probes concurrency --model openai/gpt-oss-20b --levels 1,2,4,8
+    uv run python -m relay.probes rpm         --model openai/gpt-oss-20b --n 40 --window 20
+    uv run python -m relay.probes tpm         --model openai/gpt-oss-20b --prompt-tokens 2500
+    uv run python -m relay.probes recover     --model openai/gpt-oss-20b --poll 1 --max-s 90
 """
 
 from __future__ import annotations
@@ -88,6 +88,18 @@ def _client(cfg: dict) -> LLMClient:
     )
 
 
+def _extra(a: argparse.Namespace) -> dict | None:
+    """Request extras for reasoning models.
+
+    Args:
+        a: Parsed CLI arguments.
+
+    Returns:
+        ``{"reasoning_effort": ...}`` or None.
+    """
+    return {"reasoning_effort": a.reasoning_effort} if a.reasoning_effort else None
+
+
 def _pct(xs: list[float], p: float) -> float:
     """Returns the nearest-rank percentile of an already sorted list.
 
@@ -146,7 +158,9 @@ async def probe_latency(cli: LLMClient, a: argparse.Namespace, guard: SpendGuard
     out = []
     for i in range(a.n):
         guard.check()
-        r = await cli.chat(TINY, a.model, max_tokens=a.max_tokens, tag=f"{run}:latency:{i}")
+        r = await cli.chat(
+            TINY, a.model, max_tokens=a.max_tokens, extra=_extra(a), tag=f"{run}:latency:{i}"
+        )
         guard.add(r)
         out.append(r)
         print(
@@ -173,7 +187,13 @@ async def probe_concurrency(
         guard.check()
         rs = await asyncio.gather(
             *[
-                cli.chat(TINY, a.model, max_tokens=a.max_tokens, tag=f"{run}:conc{k}:{i}")
+                cli.chat(
+                    TINY,
+                    a.model,
+                    max_tokens=a.max_tokens,
+                    extra=_extra(a),
+                    tag=f"{run}:conc{k}:{i}",
+                )
                 for i in range(k)
             ]
         )
@@ -198,7 +218,9 @@ async def probe_rpm(cli: LLMClient, a: argparse.Namespace, guard: SpendGuard, ru
         guard.check()
         tasks.append(
             asyncio.create_task(
-                cli.chat(TINY, a.model, max_tokens=a.max_tokens, tag=f"{run}:rpm:{i}")
+                cli.chat(
+                    TINY, a.model, max_tokens=a.max_tokens, extra=_extra(a), tag=f"{run}:rpm:{i}"
+                )
             )
         )
         await asyncio.sleep(interval)
@@ -227,7 +249,9 @@ async def probe_tpm(cli: LLMClient, a: argparse.Namespace, guard: SpendGuard, ru
     out = []
     for i in range(a.n):
         guard.check()
-        r = await cli.chat(msgs, a.model, max_tokens=a.max_tokens, tag=f"{run}:tpm:{i}")
+        r = await cli.chat(
+            msgs, a.model, max_tokens=a.max_tokens, extra=_extra(a), tag=f"{run}:tpm:{i}"
+        )
         guard.add(r)
         out.append(r)
         print(
@@ -253,7 +277,9 @@ async def probe_recover(cli: LLMClient, a: argparse.Namespace, guard: SpendGuard
     i = 0
     while time.time() - t0 < a.max_s:
         guard.check()
-        r = await cli.chat(TINY, a.model, max_tokens=a.max_tokens, tag=f"{run}:recover:{i}")
+        r = await cli.chat(
+            TINY, a.model, max_tokens=a.max_tokens, extra=_extra(a), tag=f"{run}:recover:{i}"
+        )
         guard.add(r)
         i += 1
         if r.status != OK and first_fail is None:
@@ -284,13 +310,16 @@ async def amain() -> None:
     """Parses CLI arguments and runs the selected probe."""
     ap = argparse.ArgumentParser(description="Probe the real Groq service.")
     ap.add_argument("probe", choices=PROBES)
-    ap.add_argument("--model", default="llama-3.1-8b-instant")
+    ap.add_argument("--model", default="openai/gpt-oss-20b")
     ap.add_argument("--n", type=int, default=20)
     ap.add_argument("--gap", type=float, default=2.0)
     ap.add_argument("--levels", default="1,2,4,8")
     ap.add_argument("--window", type=float, default=20.0)
     ap.add_argument("--prompt-tokens", type=int, default=2500)
-    ap.add_argument("--max-tokens", type=int, default=8)
+    ap.add_argument("--max-tokens", type=int, default=64)
+    ap.add_argument(
+        "--reasoning-effort", default="low", help="gpt-oss / qwen reasoning effort; '' to omit"
+    )
     ap.add_argument("--poll", type=float, default=1.0)
     ap.add_argument("--max-s", type=float, default=90.0)
     a = ap.parse_args()
