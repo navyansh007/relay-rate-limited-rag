@@ -1,0 +1,60 @@
+# All tunables live here so the system can be changed live without code edits.
+
+provider:
+  real_base_url: https://api.groq.com/openai/v1
+  standin_base_url: http://127.0.0.1:8900/openai/v1
+  connect_timeout_s: 3.0
+  # Abort a call that has produced no first token in this long (slow-success guard).
+  first_token_timeout_s: 8.0
+  # Abort if the stream stalls between chunks for this long.
+  stall_timeout_s: 5.0
+
+models:
+  understand: llama-3.1-8b-instant
+  draft: openai/gpt-oss-120b
+  draft_fallback: llama-3.1-8b-instant
+  verify: llama-3.1-8b-instant
+
+# Starting point only; limiter corrects these from response headers.
+# Free-tier values are not in the public docs: fill from probes.
+limits:
+  llama-3.1-8b-instant: {rpm: 30, tpm: 6000, rpd: 14400, tpd: 500000}
+  openai/gpt-oss-120b: {rpm: 30, tpm: 8000, rpd: 1000, tpd: 200000}
+  openai/gpt-oss-20b: {rpm: 30, tpm: 8000, rpd: 1000, tpd: 200000}
+  llama-3.3-70b-versatile: {rpm: 30, tpm: 12000, rpd: 1000, tpd: 100000}
+
+# USD per 1M tokens (input, output). Used for "cost per 1,000 answers".
+# llama prices are "contact sales" on the docs page; values here are
+# assumptions until measured.
+prices:
+  openai/gpt-oss-120b: [0.15, 0.60]
+  openai/gpt-oss-20b: [0.075, 0.30]
+  llama-3.1-8b-instant: [0.05, 0.08]
+  llama-3.3-70b-versatile: [0.59, 0.79]
+
+# Safety net so dev work cannot silently burn the shared daily budget.
+spend_guard:
+  max_real_tokens_per_run: 60000
+
+retrieval:
+  setting: s3_rerank
+  settings:
+    s1_small_many: {piece_tokens: 200, overlap: 40, fetch: 8, rerank: false, candidates: 8}
+    s2_big_few:    {piece_tokens: 500, overlap: 80, fetch: 4, rerank: false, candidates: 4}
+    s3_rerank:     {piece_tokens: 300, overlap: 60, fetch: 4, rerank: true, candidates: 20}
+    s4_tight:      {piece_tokens: 300, overlap: 60, fetch: 3, rerank: true, candidates: 20}
+  tool_timeout_s: 2.0
+  refuse_below_score: 0.0   # calibrated later against eval set
+
+retry:
+  policy: budgeted          # budgeted | naive | none
+  max_retries: 2
+  base_backoff_s: 0.25
+  max_backoff_s: 4.0
+  retry_budget_ratio: 0.2   # retries may be at most this fraction of first attempts
+
+pipeline:
+  max_requery_loops: 1
+  verify_mode: sentence     # sentence | strict | off
+  draft_max_tokens: 400
+  understand_max_tokens: 150
