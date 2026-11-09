@@ -68,8 +68,12 @@ pipeline:
   tight_headroom: 0.3
   tight_setting: s4_tight
   verify_mode: sentence     # sentence | strict | off
-  draft_max_tokens: 400
-  understand_max_tokens: 150
+  # gpt-oss models spend hidden reasoning tokens out of max_tokens before any
+  # visible text, so caps must leave room for reasoning (Groq does not reserve
+  # max_tokens against TPM, so generous caps cost nothing unless used).
+  draft_max_tokens: 900
+  understand_max_tokens: 400
+  verify_max_tokens: 400
 
 # Extra request fields per model. gpt-oss models reason before answering;
 # low effort keeps hidden reasoning tokens (TTFT and TPM cost) down.

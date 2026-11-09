@@ -196,6 +196,8 @@ class Pipeline:
         """
         start = trace.now_ms()
         est = sum(len(m["content"]) for m in messages) // 4
+        # Per-model extras (e.g. reasoning_effort) apply to every step.
+        extra = {**(self.cfg.get("model_extra", {}).get(model) or {}), **(extra or {})}
         out = await self.caller.call(
             messages,
             model,
@@ -571,7 +573,6 @@ class Pipeline:
             pcfg["draft_max_tokens"],
             deadline_at,
             on_token=on_token,
-            extra=self.cfg["model_extra"].get(model),
         )
         text = "".join(raw).strip()
         if not out.ok and not released:
