@@ -1,0 +1,62 @@
+eval: 20 questions x 3 settings = 60 requests (real)
+  a01        s1_small_many  ok           answer     ttft=  2086 tok= 2409 | 'The big Transformer model achieves a BLEU score of 41.0 on the WMT 2014 English‑to‑French '
+  a01        s2_big_few     ok           answer     ttft=  1452 tok= 2597 | 'The big Transformer model achieves a BLEU score of 41.0 on the WMT 2014 English‑to‑French '
+  a01        s3_rerank      ok           answer     ttft=  2392 tok= 2275 | 'The big Transformer model achieves a BLEU score of 41.0 on the English‑to‑French test [tra'
+  a02        s1_small_many  ok           answer     ttft=   882 tok= 2127 | 'The base Transformer employs eight parallel attention heads [transformer §3.2.2 p.5]. Each'
+  a02        s2_big_few     ok           answer     ttft=  6663 tok= 2005 | 'The base Transformer uses eight parallel attention heads [transformer §3.2.2 p.4]. Each he'
+  a02        s3_rerank      ok           refusal    ttft=  8910 tok= 1670 | "The three papers don't say this, so I won't guess. Closest passages I checked: [transforme"
+  a03        s1_small_many  ok           answer     ttft= 13746 tok= 2070 | 'The Transformer team used 4000 warmup steps for the learning‑rate schedule [transformer §5'
+  a03        s2_big_few     ok           answer     ttft= 10059 tok= 1734 | 'The Transformer team used 4000 warmup steps for the learning‑rate schedule [transformer §5'
+  a03        s3_rerank      ok           answer     ttft= 10259 tok= 1824 | 'The Transformer team used 4000 warmup steps for the learning‑rate schedule [transformer §5'
+  a04        s1_small_many  ok           answer     ttft= 14410 tok= 2421 | 'The big Transformer model was trained for 3.5 days on eight P100 GPUs [transformer abstrac'
+  a04        s2_big_few     rate_limited extractive ttft=   555 tok=  436 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a04        s3_rerank      rate_limited extractive ttft=  1587 tok=  436 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a05        s1_small_many  ok           answer     ttft= 11305 tok= 2047 | 'Moshi is designed to operate with a theoretical latency of 160 ms [moshi §5.3 p.26][moshi '
+  a05        s2_big_few     rate_limited extractive ttft=  3225 tok=  390 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a05        s3_rerank      rate_limited extractive ttft=  1386 tok=  390 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a06        s1_small_many  ok           answer     ttft=  9606 tok= 2494 | 'Mimi’s encoder projects a 24 kHz waveform to a latent representation of 12.5 frames per se'
+  a06        s2_big_few     ok           answer     ttft= 19418 tok= 2931 | 'Mimi’s encoder projects the audio waveform to a latent representation of 12.5 frames per s'
+  a06        s3_rerank      ok           answer     ttft= 12079 tok= 1964 | 'Mimi’s encoder projects a 24 kHz waveform to a latent representation of 12.5 frames per se'
+  a07        s1_small_many  ok           answer     ttft= 16250 tok= 2626 | 'Mimi uses eight quantizers [moshi §3.3.1 p.10][moshi §3.3.1 p.9]. At a 12.5 Hz frame rate '
+  a07        s2_big_few     rate_limited extractive ttft=   960 tok=  394 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a07        s3_rerank      rate_limited extractive ttft=  1895 tok=  394 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a08        s1_small_many  rate_limited extractive ttft= 12005 tok=  427 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a08        s2_big_few     ok           answer     ttft=  4451 tok= 3062 | 'The Helium language model has about 7 billion parameters [moshi §5.1 p.22][moshi §3.2.2 p.'
+  a08        s3_rerank      ok           answer     ttft= 12944 tok= 2082 | 'Helium is a 7 billion‑parameter language model [moshi §3.2.2 p.7]. The team trained it on '
+  a09        s1_small_many  rate_limited extractive ttft=   843 tok=  392 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a09        s2_big_few     rate_limited extractive ttft=  3737 tok=  392 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a09        s3_rerank      rate_limited extractive ttft=  6096 tok=  392 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a10        s1_small_many  ok           answer     ttft=  4974 tok= 2186 | 'H‑Net determines chunk boundaries with a learned routing module that predicts a similarity'
+  a10        s2_big_few     rate_limited extractive ttft=  1902 tok=  414 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a10        s3_rerank      rate_limited extractive ttft=  1454 tok=  414 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a11        s1_small_many  ok           answer     ttft=  8288 tok= 2141 | 'H‑Net includes an auxiliary loss that explicitly targets the desired down‑sampling ratios,'
+  a11        s2_big_few     ok           answer     ttft= 14951 tok= 2544 | 'H‑Net introduces a ratio loss to prevent the model from collapsing to degenerate solutions'
+  a11        s3_rerank      ok           answer     ttft=  9170 tok= 1691 | 'H‑Net adds a ratio‑based auxiliary loss to explicitly target desired down‑sampling ratios,'
+  a12        s1_small_many  ok           answer     ttft= 15442 tok= 2403 | 'The H‑Net experiments trained models on a 46 billion‑token subset of the FineWeb‑Edu‑Chine'
+  a12        s2_big_few     rate_limited extractive ttft=   402 tok=  384 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  a12        s3_rerank      rate_limited extractive ttft=  1418 tok=  384 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  u01        s1_small_many  ok           refusal    ttft= 13927 tok= 2439 | "The three papers don't say this, so I won't guess. Closest passages I checked: [hnet §3.1 "
+  u01        s2_big_few     ok           refusal    ttft= 12656 tok= 2050 | "The three papers don't say this, so I won't guess. Closest passages I checked: [hnet §E.1 "
+  u01        s3_rerank      ok           refusal    ttft= 12512 tok= 2147 | "The three papers don't say this, so I won't guess. Closest passages I checked: [hnet §3.1 "
+  u02        s1_small_many  rate_limited extractive ttft=   646 tok=  387 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  u02        s2_big_few     rate_limited extractive ttft=  1797 tok=  387 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  u02        s3_rerank      ok           refusal    ttft=  7971 tok= 1722 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §4.4"
+  u03        s1_small_many  rate_limited extractive ttft=  3565 tok=  409 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  u03        s2_big_few     rate_limited extractive ttft=   793 tok=  409 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  u03        s3_rerank      ok           refusal    ttft=  7846 tok= 2027 | "The three papers don't say this, so I won't guess. Closest passages I checked: [transforme"
+  u04        s1_small_many  ok           refusal    ttft= 14056 tok= 2221 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §6.1"
+  u04        s2_big_few     ok           refusal    ttft= 18319 tok= 2769 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §5.4"
+  u04        s3_rerank      ok           refusal    ttft= 10419 tok= 1852 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §6.4"
+  u05        s1_small_many  rate_limited extractive ttft=   687 tok=  414 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  u05        s2_big_few     rate_limited extractive ttft=  2285 tok=  414 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  u05        s3_rerank      ok           refusal    ttft=  9564 tok= 1970 | "The three papers don't say this, so I won't guess. Closest passages I checked: [transforme"
+  u06        s1_small_many  rate_limited extractive ttft= 12457 tok=  416 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  u06        s2_big_few     ok           refusal    ttft=  3257 tok= 2525 | "The three papers don't say this, so I won't guess. Closest passages I checked: [hnet §3 p."
+  u06        s3_rerank      ok           refusal    ttft= 10430 tok= 1883 | "The three papers don't say this, so I won't guess. Closest passages I checked: [hnet §3 p."
+  u07        s1_small_many  rate_limited extractive ttft=   711 tok=  382 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  u07        s2_big_few     rate_limited extractive ttft=  4520 tok=  382 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  u07        s3_rerank      ok           refusal    ttft=  7939 tok= 1973 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §5.8"
+  u08        s1_small_many  rate_limited extractive ttft=   948 tok=  395 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  u08        s2_big_few     rate_limited extractive ttft=   997 tok=  395 | "The assistant is at its request limit right now, so instead of making you wait I'm showing"
+  u08        s3_rerank      ok           refusal    ttft=  7551 tok= 1511 | "The three papers don't say this, so I won't guess. Closest passages I checked: [hnet §2.2 "
+tokens used: 86421

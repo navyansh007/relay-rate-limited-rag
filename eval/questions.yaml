@@ -18,10 +18,14 @@
 - id: a01
   question: What BLEU score does the big Transformer model get on the English-to-French test?
   answerable: true
-  gold: 41.8 BLEU on WMT 2014 English-to-French (single model, 3.5 days on eight GPUs).
+  gold: >-
+    The paper contradicts itself. The abstract (p.1) says 41.8; the §6.1 text (p.8)
+    says "our big model achieves a BLEU score of 41.0". Correct = either number, cited
+    to the place that states it; best = mentions both.
   location: transformer abstract p.1; §6.1 p.8
-  must_contain: ["41.8"]
-  tags: [number, version-trap]
+  must_contain: []
+  must_contain_any: ["41.8", "41.0"]
+  tags: [number, internal-inconsistency]
 
 - id: a02
   question: How many attention heads does the base Transformer use? What is the size of each head?

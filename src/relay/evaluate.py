@@ -18,6 +18,8 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import csv
+import json
 import time
 import uuid
 
@@ -25,8 +27,37 @@ import yaml
 
 from relay.app import apply_overrides, build
 from relay.config import ROOT, load_config
+from relay.limiter import Limiter
 from relay.pipeline import Pipeline
-from relay.results import ResultsWriter
+from relay.results import ANSWERS_JSONL, RESULTS_CSV, ResultsWriter
+
+# Quality runs are sequential: when a limit is hit the right move is to wait it
+# out, not to give up. The retry budget protects against retry storms under
+# overload and wrongly cut these runs short (first eval run), so it is relaxed here.
+EVAL_SETS = ["pipeline.tight_headroom=0", "retry.max_retries=6", "retry.budget_ratio=100"]
+
+
+def completed_pairs(scenario: str) -> set[tuple[str, str]]:
+    """(question_id, setting) pairs that already have a non-rate-limited eval row.
+
+    Args:
+        scenario: Eval scenario label.
+
+    Returns:
+        Pairs to skip when re-running only what is missing.
+    """
+    if not RESULTS_CSV.exists():
+        return set()
+    with open(RESULTS_CSV) as f:
+        rows = {r["request_id"]: r for r in csv.DictReader(f) if r["scenario"] == scenario}
+    done = set()
+    with open(ANSWERS_JSONL) as f:
+        for line in f:
+            a = json.loads(line)
+            r = rows.get(a["request_id"])
+            if r and r["status"] == "ok":
+                done.add((a["question_id"], r["retrieval_setting"]))
+    return done
 
 
 async def run(
@@ -36,6 +67,7 @@ async def run(
     sets: list[str],
     gap_s: float,
     scenario: str,
+    only_missing: bool = False,
 ) -> None:
     """Runs the evaluation.
 
@@ -46,15 +78,16 @@ async def run(
         sets: Extra config overrides.
         gap_s: Pause between requests (spreads load across the minute).
         scenario: Scenario label written to the CSV.
+        only_missing: Skip (question, setting) pairs that already have an ok row.
     """
-    base = apply_overrides(load_config(), sets)
+    base = apply_overrides(load_config(), [*EVAL_SETS, *sets])
     retrievers = Pipeline.load_retrievers(base)
+    shared = Limiter(base["limits"], enabled=base.get("limiter", {}).get("enabled", True))
     systems = {}
     for s in settings:
-        cfg = apply_overrides(
-            load_config(), [*sets, f"retrieval.setting={s}", "pipeline.tight_headroom=0"]
-        )
-        systems[s] = build(cfg, real, retrievers=retrievers)
+        cfg = apply_overrides(load_config(), [*EVAL_SETS, *sets, f"retrieval.setting={s}"])
+        systems[s] = build(cfg, real, retrievers=retrievers, limiter=shared)
+    skip = completed_pairs(scenario) if only_missing else set()
     writer = ResultsWriter()
     total = len(questions) * len(settings)
     print(
@@ -65,6 +98,8 @@ async def run(
     try:
         for q in questions:
             for s in settings:
+                if (q["id"], s) in skip:
+                    continue
                 system = systems[s]
                 rid = f"{scenario}-{s}-{q['id']}-{uuid.uuid4().hex[:4]}"
                 wall = time.time()
@@ -92,11 +127,18 @@ def main() -> None:
     ap.add_argument("--set", action="append", default=[])
     ap.add_argument("--gap", type=float, default=0.0)
     ap.add_argument("--scenario", default="eval")
+    ap.add_argument(
+        "--only-missing",
+        action="store_true",
+        help="run only (question, setting) pairs without an ok row",
+    )
     a = ap.parse_args()
     ids = [i for i in a.ids.split(",") if i]
     with open(ROOT / "eval/questions.yaml") as f:
         questions = [q for q in yaml.safe_load(f) if not ids or q["id"] in ids]
-    asyncio.run(run(questions, a.settings.split(","), a.real, a.set, a.gap, a.scenario))
+    asyncio.run(
+        run(questions, a.settings.split(","), a.real, a.set, a.gap, a.scenario, a.only_missing)
+    )
 
 
 if __name__ == "__main__":

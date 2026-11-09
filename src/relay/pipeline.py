@@ -195,7 +195,9 @@ class Pipeline:
             The call outcome.
         """
         start = trace.now_ms()
-        est = sum(len(m["content"]) for m in messages) // 4
+        # Measured: real prompt tokens ~= chars/4 plus ~110 tokens of chat-format
+        # overhead (understand prompts came out at 1.46x chars/4).
+        est = sum(len(m["content"]) for m in messages) // 4 + 110
         # Per-model extras (e.g. reasoning_effort) apply to every step.
         extra = {**(self.cfg.get("model_extra", {}).get(model) or {}), **(extra or {})}
         out = await self.caller.call(

@@ -79,6 +79,7 @@ def build(
     real: bool,
     retrievers: dict[tuple[int, int], Retriever] | None = None,
     traces_path=RAW_DIR / "traces.jsonl",
+    limiter: Limiter | None = None,
 ) -> System:
     """Builds a pipeline against the real service or the stand-in.
 
@@ -87,6 +88,9 @@ def build(
         real: Use Groq (True) or the local stand-in (False).
         retrievers: Pre-loaded retrievers to share between systems.
         traces_path: Where per-request traces go.
+        limiter: Limiter to share with other systems using the same API key.
+            Separate limiters on one key each believe they own the whole
+            budget (this caused 26 of 60 TPM 429s in the first eval run).
 
     Returns:
         The wired system.
@@ -102,7 +106,7 @@ def build(
         stall_timeout_s=p["stall_timeout_s"],
         logger=CallLogger(RAW_DIR / ("groq_calls.jsonl" if real else "standin_client_calls.jsonl")),
     )
-    limiter = Limiter(cfg["limits"], enabled=cfg.get("limiter", {}).get("enabled", True))
+    limiter = limiter or Limiter(cfg["limits"], enabled=cfg.get("limiter", {}).get("enabled", True))
     caller = RetryingCaller(client, limiter, RetryPolicy.from_config(cfg["retry"]))
     pipe = Pipeline(
         cfg, caller, limiter, retrievers or Pipeline.load_retrievers(cfg), TraceWriter(traces_path)

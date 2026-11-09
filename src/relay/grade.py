@@ -66,6 +66,8 @@ def propose_grade(q: dict, ans: dict) -> str:
         return "refused_wrongly"
     text = ans["text"].lower()
     has_all = all(s.lower() in text for s in q.get("must_contain") or [])
+    any_of = q.get("must_contain_any") or []
+    has_all = has_all and (not any_of or any(s.lower() in text for s in any_of))
     paper = (q.get("location") or "").split()[0] if q.get("location") else ""
     cites_paper = not paper or any(c.startswith(paper) for c in ans.get("citations") or [])
     return "correct" if has_all and cites_paper else "wrong"
