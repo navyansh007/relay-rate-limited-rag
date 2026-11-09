@@ -1,0 +1,8 @@
+== concurrency=1: n=1 statuses={'ok': 1}
+   ttft ms  p50=321 p95=321 max=321
+== concurrency=4: n=4 statuses={'ok': 4}
+   ttft ms  p50=1134 p95=1140 max=1140
+== concurrency=8: n=8 statuses={'ok': 8}
+   ttft ms  p50=543 p95=1254 max=1254
+== concurrency=12: n=12 statuses={'ok': 12}
+   ttft ms  p50=546 p95=760 max=760
