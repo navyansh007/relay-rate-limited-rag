@@ -24,7 +24,6 @@ Typical usage example:
 from __future__ import annotations
 
 import asyncio
-import hashlib
 import json
 import math
 import random
@@ -40,6 +39,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from relay.config import CONFIG_DIR, RAW_DIR, ROOT, _merge
+from relay.llm_client import message_key
 
 CALIBRATION_FILE = CONFIG_DIR / "standin_calibration.yaml"
 
@@ -71,19 +71,6 @@ def approx_tokens(text: str) -> int:
         Estimated token count, at least 1.
     """
     return max(1, len(text) // 4)
-
-
-def message_key(messages: list[dict]) -> str:
-    """Hashes a message list; used to replay recorded real replies.
-
-    Args:
-        messages: OpenAI-format messages.
-
-    Returns:
-        Hex SHA-256 of the canonical JSON encoding.
-    """
-    blob = json.dumps(messages, sort_keys=True, ensure_ascii=False)
-    return hashlib.sha256(blob.encode()).hexdigest()
 
 
 @dataclass
@@ -408,7 +395,7 @@ def create_app(cfg: dict | None = None) -> FastAPI:
 
         text = sim.reply_text(messages, step, max_tokens)
         completion_tokens = min(max_tokens, approx_tokens(text))
-        lat = sim.cfg["latency"]
+        lat = {**sim.cfg["latency"], **sim.cfg["latency"].get("per_model", {}).get(model, {})}
 
         async def stream():
             sim.queued += 1

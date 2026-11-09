@@ -20,6 +20,7 @@ Typical usage example:
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 import re
 import time
@@ -54,6 +55,19 @@ RETRYABLE = {RL_MINUTE, SERVER_ERROR, TIMEOUT}
 TokenCallback = Callable[[str], Awaitable[None] | None]
 
 
+def message_key(messages: list[dict]) -> str:
+    """Hashes a message list; links real replies to stand-in replay.
+
+    Args:
+        messages: OpenAI-format messages.
+
+    Returns:
+        Hex SHA-256 of the canonical JSON encoding.
+    """
+    blob = json.dumps(messages, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(blob.encode()).hexdigest()
+
+
 @dataclass
 class CallResult:
     """Outcome and measurements of a single model-call attempt.
@@ -77,6 +91,8 @@ class CallResult:
         headers: Rate-limit related response headers, verbatim.
         error: Error body or exception description, truncated.
         tag: Caller-supplied label (probe name, pipeline step, request id).
+        msg_key: Hash of the request messages (see ``message_key``).
+        prompt_chars: Total characters in the request messages.
     """
 
     model: str
@@ -97,6 +113,8 @@ class CallResult:
     headers: dict = field(default_factory=dict)
     error: str | None = None
     tag: str = ""
+    msg_key: str = ""
+    prompt_chars: int = 0
 
     def to_json(self) -> str:
         """Serialises the result as a single JSON line.
@@ -279,7 +297,14 @@ class LLMClient:
             "stream_options": {"include_usage": True},
             **(extra or {}),
         }
-        res = CallResult(model=model, source=self.source, started_at=time.time(), tag=tag)
+        res = CallResult(
+            model=model,
+            source=self.source,
+            started_at=time.time(),
+            tag=tag,
+            msg_key=message_key(messages),
+            prompt_chars=sum(len(m.get("content") or "") for m in messages),
+        )
         t0 = time.perf_counter()
 
         def ms() -> float:
