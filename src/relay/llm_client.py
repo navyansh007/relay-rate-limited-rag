@@ -171,6 +171,10 @@ def classify_429(body: str) -> tuple[str, str | None]:
     return (RL_DAY if per == "day" else RL_MINUTE), f"{what}/{per}"
 
 
+# Groq error bodies name the account's organisation id; raw logs are submitted.
+_ORG_ID = re.compile(r"org_[0-9a-z]{20,}")
+
+
 class CallLogger:
     """Appends every attempt to a JSONL file: the raw evidence behind every reported number.
 
@@ -196,7 +200,7 @@ class CallLogger:
         """
         if self.path:
             with open(self.path, "a") as f:
-                f.write(result.to_json() + "\n")
+                f.write(_ORG_ID.sub("org_[MASKED]", result.to_json()) + "\n")
 
 
 class LLMClient:
