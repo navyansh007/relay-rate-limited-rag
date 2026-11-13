@@ -1,0 +1,9 @@
+# S1: steady load at ~70% of calibrated capacity (stand-in has the real limits).
+name: steady
+source: stand-in
+seed: 21
+arrivals:
+  - {kind: poisson, rate_per_min: 3, from_s: 0, to_s: 600}
+questions: {file: eval/questions.yaml, zipf_s: 1.0}
+patience: {median_s: 10, sigma: 0.5, min_s: 3, max_s: 40}
+set: ["service.cache=false"]

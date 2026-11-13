@@ -1,0 +1,17 @@
+# S4: steady S1 load, but the provider halves RPM and TPM without notice.
+# The client still starts from its configured 30/8000 and must learn the new
+# limits from response headers and 429 bodies.
+name: rpm_halved
+source: stand-in
+seed: 24
+arrivals:
+  - {kind: poisson, rate_per_min: 3, from_s: 0, to_s: 600}
+questions: {file: eval/questions.yaml, zipf_s: 1.0}
+patience: {median_s: 10, sigma: 0.5, min_s: 3, max_s: 40}
+standin:
+  limits:
+    default: {rpm: 15, tpm: 4000}
+    per_model:
+      openai/gpt-oss-120b: {tpm: 4000}
+      openai/gpt-oss-20b: {tpm: 4000}
+set: ["service.cache=false"]

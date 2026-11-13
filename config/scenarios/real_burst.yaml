@@ -1,0 +1,11 @@
+# R2: real service, 12 requests in 5 s. One 8000-TPM bucket holds ~4 answers,
+# so this shows real queueing, shedding and 429 handling on Groq itself.
+name: real_burst
+source: real
+seed: 12
+arrivals:
+  - {kind: burst, at_s: 0, n: 12, over_s: 5}
+questions: {file: eval/questions.yaml, zipf_s: 1.0}
+patience: {median_s: 10, sigma: 0.5, min_s: 3, max_s: 40}
+set: ["service.cache=false"]
+max_requests: 12

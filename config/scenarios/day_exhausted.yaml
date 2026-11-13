@@ -1,0 +1,17 @@
+# S5: the daily budget runs out mid-run. Daily allowances are shrunk so the
+# draft model (120b) runs out after ~8 answers and the fallback (20b, which
+# also serves the understand step) after ~25 calls. Daily buckets refill
+# continuously as measured (1 request per 86.4 s per 1000 RPD).
+name: day_exhausted
+source: stand-in
+seed: 25
+arrivals:
+  - {kind: poisson, rate_per_min: 3, from_s: 0, to_s: 600}
+questions: {file: eval/questions.yaml, zipf_s: 1.0}
+patience: {median_s: 10, sigma: 0.5, min_s: 3, max_s: 40}
+standin:
+  limits:
+    per_model:
+      openai/gpt-oss-120b: {rpd: 8}
+      openai/gpt-oss-20b: {rpd: 25}
+set: ["service.cache=false"]
