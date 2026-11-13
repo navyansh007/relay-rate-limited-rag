@@ -59,6 +59,22 @@ def test_day_429_marks_model_exhausted():
     assert lim.day_exhausted("m") and 7100 < lim.day_reset_in_s("m") <= 7200
 
 
+def test_day_429_prefers_retry_after_over_full_reset():
+    # Daily buckets refill continuously: the next call fits after retry-after,
+    # long before the bucket is full again (reset-requests).
+    lim = Limiter(LIM)
+    r = CallResult(
+        "m",
+        "real",
+        status=RL_DAY,
+        http_status=429,
+        retry_after_s=87.0,
+        headers={"x-ratelimit-reset-requests": "23h59m0s", "retry-after": "87"},
+    )
+    lim.observe("m", r, reserved=10)
+    assert lim.day_exhausted("m") and 80 < lim.day_reset_in_s("m") <= 87
+
+
 async def test_budgeted_retry_recovers_from_server_errors(base_url):
     admin(base_url, {"faults": {"p_server_error": 0.5}})
     cli = LLMClient(f"{base_url}/openai/v1", source="stand-in")

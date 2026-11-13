@@ -301,5 +301,8 @@ class Limiter:
                 # limiter wait out a refill on top of the retry-after backoff.
                 b.tokens = min(b.tokens, 0.0)
         elif result.status == RL_DAY:
-            reset = parse_duration_s(h.get("x-ratelimit-reset-requests")) or result.retry_after_s
+            # Groq's daily buckets refill continuously (measured: 86.4 s per request
+            # at 1000 RPD), so ``retry-after`` (time until the next call fits) is
+            # the useful figure; ``reset-requests`` is the time to a *full* bucket.
+            reset = result.retry_after_s or parse_duration_s(h.get("x-ratelimit-reset-requests"))
             b.day_blocked_until = now + (reset or DAY_S)

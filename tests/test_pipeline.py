@@ -69,7 +69,7 @@ async def test_daily_budget_gone_gives_extractive_answer(base_url, retrievers, t
     o = await pipe.run("What optimizer did the Transformer use?", "r3", time.time() + 10)
     await cli.aclose()
     assert o.status == "rate_limited" and o.answer_kind == "extractive"
-    assert "resets in about 2 h 59 min" in o.text or "resets in about 3 h" in o.text
+    assert "try again in about 2 h 59 min" in o.text or "try again in about 3 h" in o.text
     assert o.tokens_in == 0 and o.citations
 
 

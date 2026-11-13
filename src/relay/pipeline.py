@@ -310,7 +310,11 @@ class Pipeline:
         o.status, o.answer_kind, o.refusal_reason = status, "extractive", why
         if why == "day":
             reset = max((self.limiter.day_reset_in_s(m) or 0) for m in self._draft_models())
-            when = f" It resets in about {_fmt_duration(reset)}." if reset else ""
+            when = (
+                f" Capacity comes back gradually; try again in about {_fmt_duration(reset)}."
+                if reset
+                else ""
+            )
             head = (
                 "The assistant has used today's answer budget, so I can't write a new "
                 f"answer right now, and I won't guess.{when}"
