@@ -36,12 +36,17 @@ spend_guard:
   max_real_tokens_per_run: 60000
 
 retrieval:
-  setting: s3_rerank
+  # Chosen from the real eval (Table 3, 2026-11-09): s2 had the fewest wrong
+  # answers (2/20 vs 4/20 for s1 and s3) and no CPU re-rank (~0.9 s, a queue of
+  # its own under bursts), at ~25% more tokens per answer than s3.
+  setting: s2_big_few
   settings:
     s1_small_many: {piece_tokens: 200, overlap: 40, fetch: 8, rerank: false, candidates: 8}
     s2_big_few:    {piece_tokens: 500, overlap: 80, fetch: 4, rerank: false, candidates: 4}
     s3_rerank:     {piece_tokens: 300, overlap: 60, fetch: 4, rerank: true, candidates: 20}
-    s4_tight:      {piece_tokens: 300, overlap: 60, fetch: 3, rerank: true, candidates: 20}
+    # Used when the draft model's per-minute headroom is low: same pieces as
+    # s2, half as many, so roughly half the prompt tokens per answer.
+    s4_tight:      {piece_tokens: 500, overlap: 80, fetch: 2, rerank: false, candidates: 2}
   tool_timeout_s: 3.0
   # Re-ranking is CPU-bound (~0.6-1.1 s per query); cap concurrent re-ranks so a
   # burst queues visibly instead of thrashing the CPU.
