@@ -116,3 +116,15 @@ async def test_give_up_while_waiting_for_limiter_is_traced_as_wait(base_url, ret
     trace = json.loads((tmp_path / "t.jsonl").read_text().splitlines()[-1])
     waits = [s for s in trace["spans"] if s["name"] == "draft.limiter_cancelled"]
     assert waits and waits[0]["kind"] == "wait" and trace["totals"]["wait"] > 500
+
+
+def test_extractive_quote_picks_the_sentence_matching_the_question():
+    from relay.pipeline import _best_excerpt
+
+    text = (
+        "Figure 3: Overview of the codec. "
+        "The encoder projects audio to a latent representation at 12.5 frames per second. "
+        "Training uses Adam."
+    )
+    out = _best_excerpt(text, "How many frames per second does the codec make?")
+    assert out.startswith("The encoder projects audio")

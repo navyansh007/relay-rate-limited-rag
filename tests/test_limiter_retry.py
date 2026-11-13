@@ -132,3 +132,13 @@ async def test_retry_budget_caps_retries_under_persistent_failure(base_url):
     # without a budget this would be 20 * 3 = 60 retries against a failing service
     assert retries <= 1 + 0.2 * 20 + 1
     assert any(o.refused == "budget" for o in outs)
+
+
+def test_day_wait_estimated_from_local_bucket_without_a_429():
+    # Exhaustion seen only through remaining-requests headers (no 429): the
+    # wait comes from the continuous refill rate, 86.4 s per request at 1000 RPD.
+    lim = Limiter({"m": {"rpm": 30, "tpm": 8000, "rpd": 1000, "tpd": 10**9}})
+    b = lim.budget("m")
+    b.day_requests = 1000
+    assert lim.day_exhausted("m")
+    assert 80 < lim.day_reset_in_s("m") <= 87

@@ -38,7 +38,7 @@ from dataclasses import dataclass, field
 
 from relay import prompts
 from relay.limiter import Limiter
-from relay.retrieval import Hit, Retriever
+from relay.retrieval import Hit, Retriever, tokenize
 from relay.retry import CallOutcome, RetryingCaller
 from relay.trace import Trace, TraceWriter
 from relay.verify import SentenceSplitter, check_sentence, render_citations
@@ -92,21 +92,30 @@ class Outcome:
 TextCallback = Callable[[str], None]
 
 
-def _first_sentences(text: str, max_chars: int = 320) -> str:
-    """Returns leading whole sentences of a passage, up to ``max_chars``.
+def _best_excerpt(text: str, question: str, max_chars: int = 320) -> str:
+    """Returns the passage sentence(s) that best match the question.
+
+    Sentences are scored by how many question terms (stop words removed)
+    they contain; the best one is returned with its following sentence if
+    that still fits. Leading sentences are often figure captions, so the
+    first sentence is a poor default.
 
     Args:
         text: Passage text.
+        question: The user's question.
         max_chars: Soft length cap.
 
     Returns:
-        A quotable excerpt.
+        A quotable excerpt, copied verbatim from the passage.
     """
-    out = ""
-    for s in re.split(r"(?<=[.!?])\s+", text):
-        if out and len(out) + len(s) > max_chars:
-            break
-        out = f"{out} {s}".strip()
+    sents = [s for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()]
+    if not sents:
+        return text[:max_chars]
+    terms = set(tokenize(question))
+    best = max(range(len(sents)), key=lambda i: (len(terms & set(tokenize(sents[i]))), -i))
+    out = sents[best]
+    if best + 1 < len(sents) and len(out) + len(sents[best + 1]) <= max_chars:
+        out = f"{out} {sents[best + 1]}"
     return out[: max_chars + 80]
 
 
@@ -360,7 +369,9 @@ class Pipeline:
             )
         if hits:
             body = " Here are the passages that best match your question, quoted exactly:\n" + (
-                "\n".join(f'> "{_first_sentences(h.chunk["text"])}" [{h.cite}]' for h in hits[:3])
+                "\n".join(
+                    f'> "{_best_excerpt(h.chunk["text"], o.question)}" [{h.cite}]' for h in hits[:3]
+                )
             )
             o.citations = [h.cite for h in hits[:3]]
         else:

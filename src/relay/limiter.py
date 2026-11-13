@@ -252,7 +252,7 @@ class Limiter:
         return self.budget(model).day_exhausted(time.time())
 
     def day_reset_in_s(self, model: str) -> float | None:
-        """Seconds until a day-blocked model is expected to reset.
+        """Seconds until a day-exhausted model can take its next call.
 
         Args:
             model: Model id.
@@ -260,8 +260,17 @@ class Limiter:
         Returns:
             Seconds, or None if not day-blocked.
         """
-        left = self.budget(model).day_blocked_until - time.time()
-        return left if left > 0 else None
+        b = self.budget(model)
+        now = time.time()
+        b.refill(now)
+        # Daily buckets refill continuously: the next call fits once one
+        # request (and a typical call's tokens) has drained back.
+        left = max(
+            b.day_blocked_until - now,
+            (b.day_requests + 1 - b.rpd) * 86400.0 / b.rpd,
+            (b.day_tokens + 2000 - b.tpd) * 86400.0 / b.tpd,
+        )
+        return left if left > 0 and self.day_exhausted(model) else None
 
     def observe(self, model: str, result: CallResult, reserved: int) -> None:
         """Corrects the local estimate from a completed attempt.
