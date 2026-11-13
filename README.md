@@ -20,6 +20,7 @@ interface and can be slow, fail, refuse at limits and degrade under load.
 | `src/relay/loadgen.py` | Open-loop load scenarios (`config/scenarios/*.yaml`) |
 | `src/relay/evaluate.py`, `grade.py` | Quality runs per retrieval setting; human-reviewed grades |
 | `src/relay/analysis.py` | Tables 2a, 2b, 3, computed only from `results/results.csv` |
+| `config/scenarios/*.yaml` | Load shapes: `real_steady`, `real_burst` (real); `steady`, `burst`, `burst_cache`, `overload`, `overload_nolimiter`, `overload_naive`, `rpm_halved`, `day_exhausted` (stand-in) |
 | `config/default.yaml` | Every tunable (models, limits, retrieval, retries, deadlines) |
 | `DECISIONS.md` | Decisions, measurements that changed them, assistant overrides |
 
@@ -48,10 +49,13 @@ uv run python -m relay.evaluate --real --settings s1_small_many,s2_big_few,s3_re
 uv run python -m relay.grade propose        # fill the `final` column in eval/grades.csv
 uv run python -m relay.grade apply
 
-# 4. Load scenarios
-uv run python -m relay.loadgen config/scenarios/<name>.yaml [--real]
+# 4. Load scenarios (stand-in must be running for stand-in scenarios)
+uv run python -m relay.loadgen config/scenarios/real_steady.yaml config/scenarios/real_burst.yaml --real
+uv run python -m relay.loadgen config/scenarios/{steady,burst,burst_cache,overload,overload_nolimiter,overload_naive,rpm_halved,day_exhausted}.yaml
 
-# 5. Tables
+# 5. Daily limit (last thing on a day: spends gpt-oss-20b's daily tokens)
+uv run python -m relay.probes day --model openai/gpt-oss-20b --prompt-tokens 6000 --max-total 600000
+
 uv run python -m relay.analysis
 ```
 
