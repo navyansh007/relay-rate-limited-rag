@@ -32,6 +32,21 @@ from pathlib import Path
 from relay.config import load_config
 from relay.results import RESULTS_CSV
 
+# Core shapes first (steady, burst, overload, halved, day), then variants.
+ROW_ORDER = [
+    "real_steady",
+    "steady",
+    "real_burst",
+    "burst",
+    "burst_cache",
+    "overload",
+    "overload_deadline8",
+    "overload_nolimiter",
+    "overload_naive",
+    "rpm_halved",
+    "day_exhausted",
+]
+
 
 def pct(xs: list[float], p: float) -> float | None:
     """Nearest-rank percentile.
@@ -93,7 +108,8 @@ def scenario_rows(rows: list[dict], price: tuple[float, float]) -> tuple[list[st
             continue
         groups[(r["scenario"], r["source"])].append(r)
     a, b = [], []
-    for (scen, src), rs in groups.items():
+    order = {name: i for i, name in enumerate(ROW_ORDER)}
+    for (scen, src), rs in sorted(groups.items(), key=lambda kv: (order.get(kv[0][0], 99), kv[0])):
         starts = [float(r["start_time"]) for r in rs]
         ends = [float(r["start_time"]) + float(r["total_ms"]) / 1000 for r in rs]
         window = max(starts) - min(starts)

@@ -1,0 +1,11 @@
+# S3 variant: same overload, but the system plans against an 8 s deadline
+# instead of 15 s (closer to the 10 s median user patience). Tests whether
+# shedding earlier turns give-ups into immediate quoted-passage replies.
+name: overload_deadline8
+source: stand-in
+seed: 23
+arrivals:
+  - {kind: poisson, rate_per_min: 13, from_s: 0, to_s: 360}
+questions: {file: eval/questions.yaml, zipf_s: 1.0}
+patience: {median_s: 10, sigma: 0.5, min_s: 3, max_s: 40}
+set: ["service.cache=false", "service.deadline_s=8"]
