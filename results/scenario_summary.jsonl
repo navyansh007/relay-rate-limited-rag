@@ -1,0 +1,11 @@
+{"scenario": "real_steady", "source": "real", "requests": 18, "duration_s": 278.6, "statuses": {"ok": 17, "timeout": 1}, "peak_admission_queue": 1}
+{"scenario": "real_burst", "source": "real", "requests": 12, "duration_s": 4.6, "statuses": {"ok": 7, "rate_limited": 3, "timeout": 2}, "peak_admission_queue": 1}
+{"scenario": "steady", "source": "stand-in", "requests": 29, "duration_s": 575.0, "statuses": {"ok": 29}, "peak_admission_queue": 1, "standin_peak_queue": 1}
+{"scenario": "overload_nolimiter", "source": "stand-in", "requests": 90, "duration_s": 354.9, "statuses": {"ok": 70, "rate_limited": 15, "timeout": 5}, "peak_admission_queue": 1, "standin_peak_queue": 1}
+{"scenario": "overload_naive", "source": "stand-in", "requests": 90, "duration_s": 354.9, "statuses": {"ok": 64, "rate_limited": 24, "timeout": 2}, "peak_admission_queue": 1, "standin_peak_queue": 1}
+{"scenario": "rpm_halved", "source": "stand-in", "requests": 22, "duration_s": 522.2, "statuses": {"ok": 18, "rate_limited": 2, "timeout": 2}, "peak_admission_queue": 1, "standin_peak_queue": 1}
+{"scenario": "burst", "source": "stand-in", "requests": 106, "duration_s": 146.6, "statuses": {"ok": 16, "rate_limited": 42, "timeout": 48}, "peak_admission_queue": 66, "standin_peak_queue": 3}
+{"scenario": "burst_cache", "source": "stand-in", "requests": 106, "duration_s": 146.6, "statuses": {"ok": 68, "rate_limited": 19, "timeout": 19}, "peak_admission_queue": 6, "standin_peak_queue": 1}
+{"scenario": "overload", "source": "stand-in", "requests": 90, "duration_s": 354.9, "statuses": {"ok": 66, "rate_limited": 9, "timeout": 15}, "peak_admission_queue": 1, "standin_peak_queue": 1}
+{"scenario": "overload_deadline8", "source": "stand-in", "requests": 90, "duration_s": 354.9, "statuses": {"ok": 60, "rate_limited": 24, "timeout": 6}, "peak_admission_queue": 1, "standin_peak_queue": 1}
+{"scenario": "day_exhausted", "source": "stand-in", "requests": 44, "duration_s": 599.5, "statuses": {"ok": 16, "rate_limited": 28}, "peak_admission_queue": 1, "clock_drift_s": -0.0, "standin_peak_queue": 1}

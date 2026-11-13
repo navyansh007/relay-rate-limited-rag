@@ -1,0 +1,16 @@
+steady: 29 requests over 575s (stand-in)
+{"scenario": "steady", "source": "stand-in", "requests": 29, "duration_s": 575.0, "statuses": {"ok": 29}, "peak_admission_queue": 1, "standin_peak_queue": 1}
+burst: 106 requests over 147s (stand-in)
+{"scenario": "burst", "source": "stand-in", "requests": 106, "duration_s": 146.6, "statuses": {"ok": 17, "rate_limited": 40, "timeout": 49}, "peak_admission_queue": 66, "standin_peak_queue": 3}
+burst_cache: 106 requests over 147s (stand-in)
+{"scenario": "burst_cache", "source": "stand-in", "requests": 106, "duration_s": 146.6, "statuses": {"ok": 69, "rate_limited": 16, "timeout": 21}, "peak_admission_queue": 6, "standin_peak_queue": 1}
+overload: 90 requests over 355s (stand-in)
+{"scenario": "overload", "source": "stand-in", "requests": 90, "duration_s": 354.9, "statuses": {"ok": 65, "rate_limited": 15, "timeout": 10}, "peak_admission_queue": 1, "standin_peak_queue": 1}
+overload_nolimiter: 90 requests over 355s (stand-in)
+{"scenario": "overload_nolimiter", "source": "stand-in", "requests": 90, "duration_s": 354.9, "statuses": {"ok": 70, "rate_limited": 15, "timeout": 5}, "peak_admission_queue": 1, "standin_peak_queue": 1}
+overload_naive: 90 requests over 355s (stand-in)
+{"scenario": "overload_naive", "source": "stand-in", "requests": 90, "duration_s": 354.9, "statuses": {"ok": 64, "rate_limited": 24, "timeout": 2}, "peak_admission_queue": 1, "standin_peak_queue": 1}
+rpm_halved: 22 requests over 522s (stand-in)
+{"scenario": "rpm_halved", "source": "stand-in", "requests": 22, "duration_s": 522.2, "statuses": {"ok": 18, "rate_limited": 2, "timeout": 2}, "peak_admission_queue": 1, "standin_peak_queue": 1}
+day_exhausted: 44 requests over 599s (stand-in)
+{"scenario": "day_exhausted", "source": "stand-in", "requests": 44, "duration_s": 599.5, "statuses": {"ok": 16, "rate_limited": 28}, "peak_admission_queue": 1, "standin_peak_queue": 1}

@@ -1,0 +1,22 @@
+eval: 20 questions x 1 settings = 20 requests (real)
+  a01        s4_tight       ok           answer     ttft=  1202 tok= 1518 | 'The big Transformer model achieves a BLEU score of 41.0 on the English‑to‑French test [tra'
+  a02        s4_tight       ok           answer     ttft=  1727 tok= 1529 | 'The base Transformer uses eight parallel attention heads, and each head has key and value '
+  a03        s4_tight       ok           answer     ttft=  1651 tok=  925 | 'The Transformer team used 4000 warmup steps for the learning‑rate schedule [transformer §5'
+  a04        s4_tight       ok           answer     ttft=  3123 tok= 1354 | 'The big Transformer model was trained for 3.5 days on 8 P100 GPUs [transformer §6.1 p.8]. '
+  a05        s4_tight       ok           refusal    ttft=  2107 tok= 1597 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §F.1"
+  a06        s4_tight       ok           answer     ttft=  1391 tok= 1818 | 'Mimi’s encoder produces a latent representation at 12.5 audio frames per second [moshi §3.'
+  a07        s4_tight       ok           answer     ttft=  1998 tok= 1670 | 'Mimi uses eight quantizers [moshi §3.3.1 p.10][moshi §3.3.1 p.10]. At 12.5 Hz this configu'
+  a08        s4_tight       ok           answer     ttft=  2273 tok= 1894 | 'The Helium language model contains 7 billion parameters [moshi §3.2.2 p.7]. '
+  a09        s4_tight       ok           answer     ttft=  4879 tok= 1758 | 'The Moshi team used a batch size of 8 hours of audio for the first training stage [moshi §'
+  a10        s4_tight       ok           answer     ttft=  5985 tok= 1875 | 'H‑Net determines chunk boundaries with its routing module, which computes a similarity‑bas'
+  a11        s4_tight       ok           answer     ttft=   999 tok= 1331 | 'H‑Net includes an auxiliary loss that explicitly targets desired down‑sampling ratios, gui'
+  a12        s4_tight       ok           answer     ttft=  4400 tok= 1915 | 'The H‑Net experiments trained models on a high‑quality English corpus (unspecified in the '
+  u01        s4_tight       ok           refusal    ttft=  4044 tok= 1613 | "The three papers don't say this, so I won't guess. Closest passages I checked: [hnet §3.3 "
+  u02        s4_tight       ok           refusal    ttft=  2216 tok= 1565 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §4.4"
+  u03        s4_tight       ok           refusal    ttft=  1709 tok= 1455 | "The three papers don't say this, so I won't guess. Closest passages I checked: [transforme"
+  u04        s4_tight       ok           refusal    ttft=   735 tok=  409 | "The three papers don't say this, so I won't guess. Closest passages I checked: [transforme"
+  u05        s4_tight       ok           refusal    ttft=  1573 tok= 1343 | "The three papers don't say this, so I won't guess. Closest passages I checked: [transforme"
+  u06        s4_tight       ok           refusal    ttft=  1220 tok= 1483 | "The three papers don't say this, so I won't guess. Closest passages I checked: [hnet §3 p."
+  u07        s4_tight       ok           refusal    ttft=  1305 tok= 1741 | "The three papers don't say this, so I won't guess. Closest passages I checked: [moshi §5.8"
+  u08        s4_tight       ok           refusal    ttft=  1060 tok= 1177 | "The three papers don't say this, so I won't guess. Closest passages I checked: [hnet §2 p."
+tokens used: 29970

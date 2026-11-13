@@ -1,0 +1,2 @@
+day_exhausted: 44 requests over 599s (stand-in)
+{"scenario": "day_exhausted", "source": "stand-in", "requests": 44, "duration_s": 599.5, "statuses": {"ok": 16, "rate_limited": 28}, "peak_admission_queue": 1, "clock_drift_s": -0.0, "standin_peak_queue": 1}

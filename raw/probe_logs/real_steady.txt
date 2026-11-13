@@ -1,0 +1,2 @@
+real_steady: 18 requests over 279s (real)
+{"scenario": "real_steady", "source": "real", "requests": 18, "duration_s": 278.6, "statuses": {"ok": 17, "timeout": 1}, "peak_admission_queue": 1}

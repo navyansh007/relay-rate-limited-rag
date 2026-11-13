@@ -44,6 +44,6 @@
    total ms p50=586 p95=1638 max=1663
    mean tokens in/out 78/17
    last headers: {'retry-after': '2', 'x-ratelimit-limit-requests': '1000', 'x-ratelimit-remaining-requests': '926', 'x-ratelimit-reset-requests': '1h46m33.599s'}
-   first non-ok: rate_limited_minute http=429 kind=requests/minute retry_after=2.0 body={"error":{"message":"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01j1ybhsyfepxvsbknxv4728pe` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Requested 1. Please try again in 2s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.c
+   first non-ok: rate_limited_minute http=429 kind=requests/minute retry_after=2.0 body={"error":{"message":"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_[MASKED]` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Requested 1. Please try again in 2s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.c
 
 run=probe-425c6e tokens used this run: 3040

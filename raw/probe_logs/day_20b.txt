@@ -1,0 +1,50 @@
+     1 ok       spent=   5222 t=    1s rem_tok=2778 rem_req=946
+     2 ok       spent=  10444 t=   41s rem_tok=2778 rem_req=945
+     3 ok       spent=  15666 t=   82s rem_tok=2778 rem_req=944
+     4 ok       spent=  20888 t=  122s rem_tok=2778 rem_req=943
+     5 ok       spent=  26110 t=  162s rem_tok=2778 rem_req=942
+     6 ok       spent=  31332 t=  236s rem_tok=2778 rem_req=941
+     7 ok       spent=  36554 t=  276s rem_tok=2778 rem_req=940
+     8 ok       spent=  41776 t=  316s rem_tok=2778 rem_req=939
+     9 ok       spent=  46998 t=  356s rem_tok=2778 rem_req=938
+    10 ok       spent=  52220 t=  401s rem_tok=2778 rem_req=937
+    11 ok       spent=  57442 t=  440s rem_tok=2778 rem_req=936
+    12 ok       spent=  62664 t=  480s rem_tok=2778 rem_req=935
+    13 ok       spent=  67886 t=  521s rem_tok=2778 rem_req=934
+    14 ok       spent=  73108 t=  561s rem_tok=2778 rem_req=933
+    15 ok       spent=  78330 t=  991s rem_tok=2778 rem_req=936
+    16 ok       spent=  83552 t= 1031s rem_tok=2778 rem_req=935
+    17 ok       spent=  88774 t= 1071s rem_tok=2778 rem_req=934
+    18 ok       spent=  93996 t= 1111s rem_tok=2778 rem_req=933
+    19 ok       spent=  99218 t= 1151s rem_tok=2778 rem_req=932
+    20 ok       spent= 104440 t= 1191s rem_tok=2778 rem_req=931
+    21 ok       spent= 109662 t= 1232s rem_tok=2778 rem_req=930
+    22 ok       spent= 114884 t= 1272s rem_tok=2778 rem_req=929
+    23 ok       spent= 120106 t= 1312s rem_tok=2778 rem_req=928
+    24 ok       spent= 125328 t= 1352s rem_tok=2778 rem_req=927
+    25 ok       spent= 130550 t= 1392s rem_tok=2778 rem_req=926
+    26 ok       spent= 135772 t= 1432s rem_tok=2778 rem_req=925
+    27 ok       spent= 140994 t= 1472s rem_tok=2778 rem_req=924
+    28 ok       spent= 146216 t= 1512s rem_tok=2778 rem_req=923
+    29 ok       spent= 151438 t= 1552s rem_tok=2778 rem_req=922
+    30 ok       spent= 156660 t= 1592s rem_tok=2778 rem_req=921
+    31 ok       spent= 161882 t= 1632s rem_tok=2778 rem_req=920
+    32 ok       spent= 167104 t= 1672s rem_tok=2778 rem_req=919
+    33 ok       spent= 172326 t= 1712s rem_tok=2778 rem_req=918
+    34 ok       spent= 177548 t= 1753s rem_tok=2778 rem_req=917
+    35 ok       spent= 182770 t= 1794s rem_tok=2778 rem_req=916
+    36 ok       spent= 187992 t= 1834s rem_tok=2778 rem_req=915
+    37 ok       spent= 193214 t= 1873s rem_tok=2778 rem_req=914
+    38 ok       spent= 198436 t= 1913s rem_tok=2778 rem_req=913
+    39 ok       spent= 203658 t= 1953s rem_tok=2778 rem_req=912
+    40 ok       spent= 208880 t= 1993s rem_tok=2778 rem_req=911
+    41 ok       spent= 214102 t= 2034s rem_tok=2778 rem_req=910
+    42 ok       spent= 219324 t= 2074s rem_tok=2778 rem_req=909
+    43 ok       spent= 224546 t= 2114s rem_tok=2778 rem_req=908
+    44 ok       spent= 229768 t= 2155s rem_tok=2778 rem_req=907
+  DAILY LIMIT after 229768 tokens, 45 calls, 2195s
+  body: {"error":{"message":"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_[MASKED]` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 195383, Requested 5222. Please try again in 4m21.36s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing","type":"tokens","code":"rate_limit_exceeded"}}
+
+  headers: {'retry-after': '262', 'x-ratelimit-limit-requests': '1000', 'x-ratelimit-limit-tokens': '8000', 'x-ratelimit-remaining-requests': '907', 'x-ratelimit-remaining-tokens': '8000', 'x-ratelimit-reset-requests': '2h13m55.2s', 'x-ratelimit-reset-tokens': '1ms'}
+
+run=probe-ff5562 tokens used this run: 229768

@@ -1,0 +1,8 @@
+burst: 106 requests over 147s (stand-in)
+{"scenario": "burst", "source": "stand-in", "requests": 106, "duration_s": 146.6, "statuses": {"ok": 16, "rate_limited": 42, "timeout": 48}, "peak_admission_queue": 66, "standin_peak_queue": 3}
+burst_cache: 106 requests over 147s (stand-in)
+{"scenario": "burst_cache", "source": "stand-in", "requests": 106, "duration_s": 146.6, "statuses": {"ok": 68, "rate_limited": 19, "timeout": 19}, "peak_admission_queue": 6, "standin_peak_queue": 1}
+overload: 90 requests over 355s (stand-in)
+{"scenario": "overload", "source": "stand-in", "requests": 90, "duration_s": 354.9, "statuses": {"ok": 66, "rate_limited": 9, "timeout": 15}, "peak_admission_queue": 1, "standin_peak_queue": 1}
+overload_deadline8: 90 requests over 355s (stand-in)
+{"scenario": "overload_deadline8", "source": "stand-in", "requests": 90, "duration_s": 354.9, "statuses": {"ok": 60, "rate_limited": 24, "timeout": 6}, "peak_admission_queue": 1, "standin_peak_queue": 1}

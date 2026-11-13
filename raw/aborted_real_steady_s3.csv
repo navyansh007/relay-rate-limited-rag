@@ -1,0 +1,5 @@
+request_id,scenario,source,start_time,first_token_ms,total_ms,status,retries,tokens_in,tokens_out,retrieval_setting,answer_grade
+real_steady-00000,real_steady,real,1794556473.205,2220.9,2225.0,ok,0,1627,193,s3_rerank,
+real_steady-00001,real_steady,real,1794556483.294,2577.2,2587.3,ok,0,1934,274,s3_rerank,
+real_steady-00002,real_steady,real,1794556495.361,2417.7,2422.3,ok,0,1627,193,s3_rerank,
+real_steady-00003,real_steady,real,1794556522.219,2547.1,2554.1,ok,0,1627,296,s3_rerank,

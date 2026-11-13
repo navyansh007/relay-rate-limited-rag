@@ -1,4 +1,4 @@
-  limited: rate_limited_minute retry_after=2.0 body={"error":{"message":"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01j1ybhsyfepxvsbknxv4728pe` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reques
+  limited: rate_limited_minute retry_after=2.0 body={"error":{"message":"Rate limit reached for model `openai/gpt-oss-20b` in organization `org_[MASKED]` service tier `on_demand` on requests per minute (RPM): Limit 30, Used 30, Reques
   recovered 1.6s after first observed 429
 
 run=probe-8fd771 tokens used this run: 95

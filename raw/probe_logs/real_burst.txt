@@ -1,0 +1,2 @@
+real_burst: 12 requests over 5s (real)
+{"scenario": "real_burst", "source": "real", "requests": 12, "duration_s": 4.6, "statuses": {"ok": 7, "rate_limited": 3, "timeout": 2}, "peak_admission_queue": 1}
