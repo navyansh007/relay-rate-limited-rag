@@ -198,6 +198,7 @@ async def _drive(sc: dict, cfg: dict, real: bool) -> dict:
 
     counts: dict[str, int] = {}
     start = time.perf_counter() + 0.5
+    wall_start = time.time() + 0.5
 
     async def one(i: int, off: float, q: dict, patience_s: float) -> None:
         await asyncio.sleep(max(0.0, start + off - time.perf_counter()))
@@ -223,6 +224,12 @@ async def _drive(sc: dict, cfg: dict, real: bool) -> dict:
         await asyncio.gather(*(one(i, off, q, p) for i, (off, q, p) in enumerate(plan)))
     finally:
         await system.aclose()
+    # Wall clock minus monotonic clock: non-zero if the machine slept (the
+    # monotonic clock pauses, wall-clock rate limits keep refilling) and the
+    # run is not valid. Found the hard way; see DECISIONS.md 2026-11-13.
+    drift = (time.time() - wall_start) - (time.perf_counter() - start)
+    if abs(drift) > 1.0:
+        print(f"WARNING: clocks drifted {drift:.1f}s (machine slept?): discard this run")
     return {
         "scenario": name,
         "source": system.source,
@@ -230,6 +237,7 @@ async def _drive(sc: dict, cfg: dict, real: bool) -> dict:
         "duration_s": round(span, 1),
         "statuses": counts,
         "peak_admission_queue": svc.peak_queued,
+        "clock_drift_s": round(drift, 2),
     }
 
 
