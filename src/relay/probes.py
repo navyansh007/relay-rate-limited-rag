@@ -22,7 +22,15 @@ import time
 import uuid
 
 from relay.config import RAW_DIR, groq_api_key, load_config
-from relay.llm_client import OK, CallLogger, CallResult, LLMClient
+from relay.llm_client import (
+    OK,
+    RL_DAY,
+    RL_MINUTE,
+    CallLogger,
+    CallResult,
+    LLMClient,
+    parse_duration_s,
+)
 
 TINY = [{"role": "user", "content": "Reply with exactly the word: pong"}]
 # ~4 characters per token is a rough English estimate; real counts come back in usage.
@@ -297,12 +305,57 @@ async def probe_recover(cli: LLMClient, a: argparse.Namespace, guard: SpendGuard
     print("  did not recover within max-s")
 
 
+async def probe_day(cli: LLMClient, a: argparse.Namespace, guard: SpendGuard, run: str) -> None:
+    """Spends one model's daily token budget to observe the real daily limit.
+
+    Sends large prompts paced by the per-minute bucket (waiting out
+    ``retry-after`` on minute 429s) until a daily 429 arrives or ``--max-total``
+    tokens are spent. Prints the daily 429 body and headers, which no
+    documentation shows. Run it last on a day: it leaves the model with
+    almost no budget until the bucket refills.
+
+    Args:
+        cli: Real-service client.
+        a: Parsed CLI arguments (uses ``prompt_tokens``, ``model``, ``max_total``).
+        guard: Spend guard for this run.
+        run: Run id used in attempt tags.
+    """
+    reps = max(1, a.prompt_tokens * 4 // len(FILLER))
+    msgs = [{"role": "user", "content": FILLER * reps + "\nReply with: ok"}]
+    spent, i, t0 = 0, 0, time.time()
+    while spent < a.max_total:
+        guard.check()
+        r = await cli.chat(msgs, a.model, max_tokens=16, extra=_extra(a), tag=f"{run}:day:{i}")
+        guard.add(r)
+        spent += r.tokens_in + r.tokens_out
+        i += 1
+        elapsed = time.time() - t0
+        if r.status == RL_DAY:
+            print(f"  DAILY LIMIT after {spent} tokens, {i} calls, {elapsed:.0f}s")
+            print(f"  body: {r.error}")
+            print(f"  headers: {r.headers}")
+            return
+        if r.status == RL_MINUTE:
+            await asyncio.sleep(r.retry_after_s or 5.0)
+            continue
+        print(
+            f"  {i:4d} {r.status:8s} spent={spent:7d} t={elapsed:5.0f}s "
+            f"rem_tok={r.headers.get('x-ratelimit-remaining-tokens')} "
+            f"rem_req={r.headers.get('x-ratelimit-remaining-requests')}"
+        )
+        reset = parse_duration_s(r.headers.get("x-ratelimit-reset-tokens")) or 0.0
+        if float(r.headers.get("x-ratelimit-remaining-tokens", 1e9)) < a.prompt_tokens * 1.2:
+            await asyncio.sleep(reset)
+    print(f"  stopped at --max-total ({spent} tokens) without a daily 429")
+
+
 PROBES = {
     "latency": probe_latency,
     "concurrency": probe_concurrency,
     "rpm": probe_rpm,
     "tpm": probe_tpm,
     "recover": probe_recover,
+    "day": probe_day,
 }
 
 
@@ -322,9 +375,10 @@ async def amain() -> None:
     )
     ap.add_argument("--poll", type=float, default=1.0)
     ap.add_argument("--max-s", type=float, default=90.0)
+    ap.add_argument("--max-total", type=int, default=0, help="day probe: token ceiling")
     a = ap.parse_args()
     cfg = load_config()
-    guard = SpendGuard(cfg["spend_guard"]["max_real_tokens_per_run"])
+    guard = SpendGuard(max(cfg["spend_guard"]["max_real_tokens_per_run"], a.max_total))
     run = f"probe-{uuid.uuid4().hex[:6]}"
     cli = _client(cfg)
     try:
