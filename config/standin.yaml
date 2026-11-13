@@ -1,7 +1,10 @@
 # Stand-in model service parameters.
-# Latency parameters are PLACEHOLDERS until fitted from raw/groq_calls.jsonl
-# by `python -m relay.calibrate`, which writes config/standin_calibration.yaml
-# (loaded on top of this file).
+# Latency values below are generic defaults. The per-model values actually used
+# are fitted from raw/groq_calls.jsonl by `python -m relay.calibrate`, which
+# writes config/standin_calibration.yaml (loaded on top of this file).
+# Not measurable on the real service and therefore ASSUMED: `workers`, the load
+# slowdown (load_alpha, load_knee) and the fault rates (0 errors in 298 real
+# calls bounds the real error rate at about 1% with 95% confidence).
 
 host: 127.0.0.1
 port: 8900
