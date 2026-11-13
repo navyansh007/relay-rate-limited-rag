@@ -61,9 +61,14 @@ pipeline:
   understand_mode: model    # model | rules
   understand_min_headroom: 0.2   # below this TPM headroom, route with keyword rules
   max_requery_loops: 1
-  # Evidence thresholds for the decide step (PLACEHOLDERS: calibrate on eval set).
-  weak_rerank: -4.0         # cross-encoder logit of the best passage
-  weak_dense: 0.55          # cosine of the best passage when not re-ranking
+  # Evidence floors for the decide step, set from the 20 eval questions
+  # (2026-11-13). Scores do NOT separate answerable from unanswerable: u08
+  # scores 0.87 cosine (above 10/12 answerable) and u02 6.7 re-rank logit.
+  # Lowest answerable: 0.755 cosine (a06, s2), -0.74 logit (a05, s3). The floor
+  # only drops clear misses before spending a draft call; the draft model's
+  # NOT_IN_PAPERS reply and sentence checks make the real refusal decision.
+  weak_rerank: -1.5         # cross-encoder logit of the best passage
+  weak_dense: 0.70          # cosine of the best passage when not re-ranking
   # When the draft model's per-minute headroom drops below this, retrieve fewer pieces.
   tight_headroom: 0.3
   tight_setting: s4_tight
