@@ -408,6 +408,7 @@ class Pipeline:
         t0: float | None = None,
         queue_wait_ms: float = 0.0,
         sink: dict | None = None,
+        on_span: Callable | None = None,
     ) -> Outcome:
         """Answers one question.
 
@@ -422,12 +423,15 @@ class Pipeline:
             sink: If given, ``sink["outcome"]`` is set to the in-progress
                 outcome, so a caller that cancels the request can still read
                 the tokens spent and text shown so far.
+            on_span: Called with each trace span as it is recorded, so a UI can
+                show the pipeline's progress live.
 
         Returns:
             The outcome. If the task is cancelled (the user gave up), the trace
             is still written and the cancellation propagates.
         """
         trace = Trace(request_id, t0)
+        trace.on_span = on_span
         if queue_wait_ms > 1:
             trace.add("wait", "admission.queue", 0.0, queue_wait_ms)
         o = Outcome(request_id, question)

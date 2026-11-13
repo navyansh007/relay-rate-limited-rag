@@ -59,6 +59,8 @@ class Trace:
         self.t0 = t0 if t0 is not None else time.perf_counter()
         self.spans: list[Span] = []
         self.attrs: dict = {}
+        # Optional observer called with each span as it is recorded (live UI).
+        self.on_span = None
 
     def now_ms(self) -> float:
         """Milliseconds since arrival.
@@ -78,7 +80,10 @@ class Trace:
             end_ms: End offset.
             **attrs: Extra details.
         """
-        self.spans.append(Span(kind, name, round(start_ms, 1), round(end_ms, 1), attrs))
+        span = Span(kind, name, round(start_ms, 1), round(end_ms, 1), attrs)
+        self.spans.append(span)
+        if self.on_span is not None:
+            self.on_span(span)
 
     def totals(self) -> dict[str, float]:
         """Sums span durations by kind.

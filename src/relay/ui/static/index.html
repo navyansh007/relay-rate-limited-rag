@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relay</title>
+<link rel="icon" href="/static/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="masthead grid">
+  <h1 class="wordmark">Relay<span class="dot">.</span></h1>
+  <div class="intro">
+    <p class="lede">Cited answers from three research papers, served under a free tier's real rate limits.</p>
+    <nav class="nav">
+      <a href="#ask"><span>01</span>Ask</a>
+      <a href="#burst"><span>02</span>Burst</a>
+      <a href="#measured"><span>03</span>Measured</a>
+    </nav>
+  </div>
+</header>
+
+<section id="ask" class="grid">
+  <div class="sec-head">
+    <div class="sec-no">01</div>
+    <h2 class="sec-title">One question, five steps.</h2>
+    <p class="sec-note">Every sentence is released only after its citation is checked and every number in it is found in the cited passage. If the papers do not say, it refuses.</p>
+  </div>
+
+  <div class="ask-main">
+    <div class="modes" role="group" aria-label="Mode">
+      <button id="mode-replay" aria-pressed="true">Replay real Groq runs</button>
+      <button id="mode-live" aria-pressed="false">Live</button>
+    </div>
+    <ol class="sessions" id="sessions"></ol>
+
+    <div class="q-wrap">
+      <span class="label" id="q-label">Question</span>
+      <div id="q-replay" class="question"></div>
+      <textarea id="q-live" class="question" rows="2" placeholder="Ask about the Transformer, Moshi or H-Net…" hidden></textarea>
+      <div class="q-row">
+        <span class="label" id="src-label">Recorded on Groq · gpt-oss-120b</span>
+        <button class="go" id="go">Replay</button>
+      </div>
+    </div>
+
+    <div class="answer" id="answer"><span class="pending">The answer appears here, one verified sentence at a time.</span></div>
+
+    <div class="meta">
+      <div><span class="label">First token</span><div class="v" id="m-ttft">–</div></div>
+      <div><span class="label">Total</span><div class="v" id="m-total">–</div></div>
+      <div><span class="label">Tokens</span><div class="v" id="m-tokens">–</div></div>
+      <div><span class="label">Outcome</span><div class="v" id="m-out">–</div></div>
+    </div>
+
+    <div class="passages" id="passages"></div>
+  </div>
+
+  <aside class="ask-side">
+    <ol class="steps" id="steps"></ol>
+
+    <div class="block">
+      <span class="label">Where the time goes</span>
+      <div class="wf" id="wf"></div>
+      <div class="legend"><span><i></i>work</span><span><i class="wait"></i>waiting for budget</span><span><i class="retry"></i>retry</span></div>
+    </div>
+
+    <div class="block">
+      <span class="label">Tokens left this minute (from response headers)</span>
+      <div id="gauges"></div>
+    </div>
+  </aside>
+</section>
+
+<section id="burst" class="grid">
+  <div class="sec-head">
+    <div class="sec-no">02</div>
+    <h2 class="sec-title">Twelve questions in five seconds.</h2>
+    <p class="sec-note">A real burst against Groq's free tier. Four answers empty the 8,000-token minute budget; the rest wait for it to refill, get the cited sources at once, or give up. Zero 429 errors reached the provider.</p>
+  </div>
+  <div class="burst-main">
+    <div class="burst-top">
+      <div class="clock num" id="clock">0.0<small>s</small></div>
+      <div class="legend"><span><i></i>working</span><span><i class="wait"></i>waiting for token budget</span><span><i class="refused"></i>waited, then past its deadline: cited sources</span></div>
+      <div></div>
+    </div>
+    <div class="lanes" id="lanes"></div>
+    <div class="burst-axis"><div></div><div class="ticks" id="ticks"></div><div></div></div>
+    <div class="tpm">
+      <div class="cap"><span class="label">gpt-oss-120b tokens left this minute</span><br>From <span class="mono">x-ratelimit-remaining-tokens</span> after each call.</div>
+      <svg id="tpm" viewBox="0 0 1000 120" preserveAspectRatio="none"></svg>
+      <div class="cap" id="tpm-now"></div>
+    </div>
+  </div>
+</section>
+
+<section id="measured" class="grid">
+  <div class="sec-head">
+    <div class="sec-no">03</div>
+    <h2 class="sec-title">Measured, not assumed.</h2>
+    <p class="sec-note">Limits were found by hitting them. Load shapes ran against a stand-in fitted to 298 real calls. Every number is recomputed from <span class="mono">results/results.csv</span>.</p>
+  </div>
+  <div class="figures" id="figures"></div>
+  <div class="outcomes" id="outcomes"></div>
+</section>
+
+<footer class="grid">
+  <div class="l">Relay. Hybrid retrieval, sentence-level verification, a header-corrected rate limiter and a Groq-compatible stand-in for load testing.</div>
+  <div class="r">Papers: Attention Is All You Need (1706.03762v7) · Moshi (2410.00037v1) · Dynamic Chunking / H-Net (2507.07955v2).</div>
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -2,6 +2,10 @@
 
 Cited answers from research papers, served under a free LLM tier's real rate limits.
 
+[![Relay demo: a 60-second tour](docs/demo/relay-demo.gif)](docs/demo/relay-demo.mp4)
+
+<sub>60-second tour of the UI in this repo, replaying real Groq runs. Click for the full-quality MP4.</sub>
+
 Relay answers questions about three arXiv papers: *Attention Is All You Need*, *Moshi* and *Dynamic Chunking (H-Net)*. Every sentence it sends cites the passage it came from, and every number in it has been found in that passage. If the papers don't say, it says so.
 
 The harder part is speed under load. Groq's free tier gives each model 8,000 tokens a minute, and one cited answer costs about 2,150 tokens. That is 3.7 answers a minute. Relay treats that budget as the system's capacity. It decides who waits, who gets fewer passages, and who gets the cited sources immediately instead of a written answer, and it never drops a request silently.
@@ -41,11 +45,25 @@ Around the pipeline:
 
 ```bash
 uv sync
+uv run python -m relay.ui            # http://127.0.0.1:8080
+```
+
+The UI opens in **replay** mode: requests that really ran against Groq, played back with their recorded timings, passages and rate-limit headers. No API key or index is needed.
+
+To ask your own questions (**live** mode):
+
+```bash
 uv run python -m relay.ingest        # downloads the pinned paper versions, builds the index
 uv run python -m relay.standin &     # local Groq-compatible stand-in
-uv run python -m relay.app "What frame rate does Mimi run at?"
+uv run python -m relay.ui            # Live mode is now enabled
 
 cp .env.example .env                 # add GROQ_API_KEY to use the real service
+uv run python -m relay.ui --real
+```
+
+One question from the command line:
+
+```bash
 uv run python -m relay.app "What frame rate does Mimi run at?" --real
 ```
 
@@ -117,6 +135,8 @@ The full reasoning, with dates and evidence, is in [DECISIONS.md](DECISIONS.md).
 | `src/relay/loadgen.py` | Open-loop load generator with impatient users (`config/scenarios/*.yaml`) |
 | `src/relay/evaluate.py`, `grade.py` | Quality runs per retrieval setting; reviewed grades |
 | `src/relay/analysis.py` | Every table, computed from `results/results.csv` |
+| `src/relay/ui/` | The web UI: replays recorded real runs, or streams live ones |
+| `scripts/build_demo_data.py` | Builds the UI's replay data from the raw logs |
 | `config/default.yaml` | Every tunable: models, limits, retrieval, retries, deadlines |
 | `results/`, `raw/`, `eval/` | One row per request, every real call with headers, per-request traces, questions and grades |
 
@@ -136,8 +156,9 @@ uv run python -m relay.grade propose && uv run python -m relay.grade apply
 uv run python -m relay.loadgen config/scenarios/{steady,burst,overload,rpm_halved,day_exhausted}.yaml
 uv run python -m relay.loadgen config/scenarios/real_steady.yaml config/scenarios/real_burst.yaml --real
 
-# tables
+# tables and the UI's replay data
 uv run python -m relay.analysis
+uv run python scripts/build_demo_data.py
 ```
 
 The API key is read from `.env` and never logged. Real-service runs need an explicit `--real` flag, and probes stop at a per-run token ceiling.
