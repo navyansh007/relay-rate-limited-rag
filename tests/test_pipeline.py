@@ -93,3 +93,26 @@ async def test_named_paper_blocks_cross_paper_answer(base_url, retrievers, tmp_p
     await cli.aclose()
     assert "P100" not in o.text
     assert all(c.startswith("hnet") for c in o.citations)
+
+
+async def test_give_up_while_waiting_for_limiter_is_traced_as_wait(base_url, retrievers, tmp_path):
+    # Found on the real service: a user who gave up while the draft waited for
+    # per-minute capacity left a trace with wait=0. The wait must be recorded.
+    import asyncio
+
+    admin(base_url, {})
+    pipe, cli, lim = make(base_url, retrievers, tmp_path, understand_mode="rules")
+    draft = load_config()["models"]["draft"]
+    b = lim.budget(draft)
+    b.tokens = -0.9 * b.tpm  # empty bucket: the next draft must wait ~50 s
+    task = asyncio.create_task(
+        pipe.run("What optimizer did the Transformer use?", "r9", time.time() + 120)
+    )
+    await asyncio.sleep(1.0)
+    task.cancel()
+    with pytest.raises(asyncio.CancelledError):
+        await task
+    await cli.aclose()
+    trace = json.loads((tmp_path / "t.jsonl").read_text().splitlines()[-1])
+    waits = [s for s in trace["spans"] if s["name"] == "draft.limiter_cancelled"]
+    assert waits and waits[0]["kind"] == "wait" and trace["totals"]["wait"] > 500

@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import asyncio
 import re
+import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
 
@@ -200,17 +201,51 @@ class Pipeline:
         est = sum(len(m["content"]) for m in messages) // 4 + 110
         # Per-model extras (e.g. reasoning_effort) apply to every step.
         extra = {**(self.cfg.get("model_extra", {}).get(model) or {}), **(extra or {})}
-        out = await self.caller.call(
-            messages,
-            model,
-            max_tokens,
-            deadline_at,
-            est,
-            on_token=on_token,
-            step=step,
-            tag=f"{o.request_id}:{step}",
-            extra=extra,
-        )
+        progress: dict = {}
+        try:
+            out = await self.caller.call(
+                messages,
+                model,
+                max_tokens,
+                deadline_at,
+                est,
+                on_token=on_token,
+                step=step,
+                tag=f"{o.request_id}:{step}",
+                extra=extra,
+                progress=progress,
+            )
+        except asyncio.CancelledError:
+            # The user gave up mid-call: keep the finished attempts and say
+            # which phase the request was in, so a give-up is explainable.
+            self._record_attempts(trace, o, step, model, start, progress.get("outcome"))
+            if progress.get("phase"):
+                began = trace.now_ms() - (time.time() - progress["since"]) * 1000
+                kind = {"limiter": "wait", "call": "work", "backoff": "retry"}[progress["phase"]]
+                trace.add(
+                    kind,
+                    f"{step}.{progress['phase']}_cancelled",
+                    began,
+                    trace.now_ms(),
+                    model=model,
+                )
+            raise
+        self._record_attempts(trace, o, step, model, start, out)
+        return out
+
+    def _record_attempts(self, trace, o, step, model, start, out) -> None:
+        """Adds an outcome's attempts to the trace and its costs to the outcome.
+
+        Args:
+            trace: Request trace.
+            o: Outcome being built.
+            step: Step name.
+            model: Model id.
+            start: Trace time (ms) when the logical call began.
+            out: The call outcome so far (None if nothing happened yet).
+        """
+        if out is None:
+            return
         t = start
         for i, a in enumerate(out.attempts):
             if a.backoff_ms:
@@ -246,7 +281,6 @@ class Pipeline:
         o.retries += out.retries
         o.tokens_in += out.tokens_in
         o.tokens_out += out.tokens_out
-        return out
 
     def _emit(self, trace: Trace, o: Outcome, text: str, on_text: TextCallback | None) -> None:
         """Sends text to the user, stamping time to first token.

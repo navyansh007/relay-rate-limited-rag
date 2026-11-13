@@ -214,6 +214,7 @@ class RetryingCaller:
         step: str = "",
         tag: str = "",
         extra: dict | None = None,
+        progress: dict | None = None,
     ) -> CallOutcome:
         """Calls the model, retrying per policy, until success or give-up.
 
@@ -227,11 +228,17 @@ class RetryingCaller:
             step: Pipeline step name.
             tag: Log label.
             extra: Extra request-body fields.
+            progress: If given, kept up to date with ``phase`` (``limiter``,
+                ``call`` or ``backoff``), ``since`` (``time.time()`` when the
+                phase began) and ``outcome``, so a caller that is cancelled
+                mid-call can still say where the time went.
 
         Returns:
             All attempts and the reason for stopping.
         """
         out = CallOutcome()
+        progress = progress if progress is not None else {}
+        progress["outcome"] = out
         # Groq charges prompt + actual output, not max_tokens (measured), so
         # reserve a typical completion and let the limiter settle afterwards.
         reserve = est_prompt_tokens + min(max_tokens, self.expected_out_tokens)
@@ -240,6 +247,7 @@ class RetryingCaller:
             self.policy.policy
         ]
         while True:
+            progress.update(phase="limiter", since=time.time())
             grant = await self.limiter.acquire(model, reserve, deadline_at)
             if not grant.ok:
                 out.refused = grant.reason
@@ -248,6 +256,7 @@ class RetryingCaller:
             if not out.attempts:
                 self.budget.deposit()
             remaining = deadline_at - time.time()
+            progress.update(phase="call", since=time.time())
             res = await self.client.chat(
                 messages,
                 model,
@@ -278,4 +287,5 @@ class RetryingCaller:
                 if not self.budget.withdraw():
                     out.refused = "budget"
                     return out
+            progress.update(phase="backoff", since=time.time())
             await asyncio.sleep(backoff)
