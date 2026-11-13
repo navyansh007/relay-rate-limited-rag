@@ -2,17 +2,17 @@
 latency:
   per_model:
     openai/gpt-oss-120b:
-      decode_tps_median: 2890.2
-      decode_tps_sigma: 1.284
-      prefill_ms_per_1k: 0.0
-      ttft_median_ms: 590.9
-      ttft_sigma: 0.361
+      decode_tps_median: 2281.0
+      decode_tps_sigma: 0.823
+      prefill_ms_per_1k: 65.88
+      ttft_median_ms: 572.9
+      ttft_sigma: 0.386
     openai/gpt-oss-20b:
-      decode_tps_median: 545.3
-      decode_tps_sigma: 1.018
+      decode_tps_median: 1362.7
+      decode_tps_sigma: 1.062
       prefill_ms_per_1k: 0.0
-      ttft_median_ms: 697.7
-      ttft_sigma: 0.463
+      ttft_median_ms: 655.1
+      ttft_sigma: 0.512
 limits:
   per_model:
     openai/gpt-oss-120b:
